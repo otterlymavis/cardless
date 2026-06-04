@@ -107,3 +107,9 @@ See [`docs/competitive_analysis.md`](docs/competitive_analysis.md) for an analys
 - Add Discord/LINE/Slack notifications for newly opened or closing lotteries.
 - Add source-specific parsers for Pia/eplus/Lawson Ticket date fields.
 - Support multiple rounds explicitly (`1st lottery`, `2nd lottery`, `official presale`, `general sale`).
+
+## Minimalist iOS loyalty-card app starter
+
+A lightweight SwiftUI starter app for storing loyalty cards on iOS now lives in [`LoyaltyCardsApp`](LoyaltyCardsApp/README.md). It is intentionally offline-first and minimal: local JSON persistence, add/edit/delete flows, searchable cards, and CoreImage barcode rendering without accounts, ads, coupons, or network requests.
+
+See [`docs/loyalty_cards_product_brief.md`](docs/loyalty_cards_product_brief.md) for the product brief and MVP scope.
