@@ -1,0 +1,329 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild test -project LoyaltyCardsApp.xcodeproj -scheme LoyaltyCardsApp -destination "platform=iOS Simulator,name=iPhone 17"
+
+2026-06-12 13:16:30.756 xcodebuild[8626:7326290] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (3 targets)
+    Target 'LoyaltyCardsAppTests' in project 'LoyaltyCardsApp'
+        ➜ Explicit dependency on target 'LoyaltyCardsApp' in project 'LoyaltyCardsApp'
+    Target 'LoyaltyCardsAppUITests' in project 'LoyaltyCardsApp'
+        ➜ Explicit dependency on target 'LoyaltyCardsApp' in project 'LoyaltyCardsApp'
+    Target 'LoyaltyCardsApp' in project 'LoyaltyCardsApp' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 9f78e807a99ac47a329819dcda7540e1
+Build description path: /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/XCBuildData/9f78e807a99ac47a329819dcda7540e1.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk /Users/imac/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.5-23F73-6cfe768891a92b912361537c460fe42b.sdkstatcache
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp/LoyaltyCardsApp.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -o /Users/imac/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.5-23F73-6cfe768891a92b912361537c460fe42b.sdkstatcache
+
+ProcessInfoPlistFile /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/Info.plist /Users/imac/Documents/cardless/LoyaltyCardsApp/Sources/LoyaltyCardsApp/Info.plist (in target 'LoyaltyCardsApp' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-infoPlistUtility /Users/imac/Documents/cardless/LoyaltyCardsApp/Sources/LoyaltyCardsApp/Info.plist -producttype com.apple.product-type.application -genpkginfo /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/Info.plist
+
+CopySwiftLibs /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app (in target 'LoyaltyCardsApp' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/LoyaltyCardsApp.debug.dylib --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/Frameworks --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/SystemExtensions --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/Frameworks --strip-bitcode --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsApp.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+
+SwiftDriver LoyaltyCardsAppTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LoyaltyCardsAppTests -Onone @/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/imac/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.5-23F73-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-generated-files.hmap -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-own-target-headers.hmap -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-project-headers.hmap -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/DerivedSources/arm64 -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests-Swift.h -working-directory /Users/imac/Documents/cardless/LoyaltyCardsApp -experimental-emit-module-separately -disable-cmo
+
+ProcessInfoPlistFile /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest/Info.plist /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/empty-LoyaltyCardsAppTests.plist (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-infoPlistUtility /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/empty-LoyaltyCardsAppTests.plist -producttype com.apple.product-type.bundle.unit-test -expandbuildsettings -format binary -platform iphonesimulator -o /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest/Info.plist
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ LoyaltyCardsAppTests (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+
+EmitSwiftModule normal arm64 (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    
+
+SwiftCompile normal arm64 Compiling\ LoyaltyCardStoreTests.swift /Users/imac/Documents/cardless/LoyaltyCardsApp/Tests/LoyaltyCardsAppTests/LoyaltyCardStoreTests.swift (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+SwiftCompile normal arm64 /Users/imac/Documents/cardless/LoyaltyCardsApp/Tests/LoyaltyCardsAppTests/LoyaltyCardStoreTests.swift (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    
+
+SwiftDriverJobDiscovery normal arm64 Emitting module for LoyaltyCardsAppTests (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+
+SwiftDriver\ Compilation\ Requirements LoyaltyCardsAppTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-Swift-Compilation-Requirements -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LoyaltyCardsAppTests -Onone @/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/imac/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.5-23F73-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-generated-files.hmap -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-own-target-headers.hmap -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-project-headers.hmap -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/DerivedSources/arm64 -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests-Swift.h -working-directory /Users/imac/Documents/cardless/LoyaltyCardsApp -experimental-emit-module-separately -disable-cmo
+
+Copy /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppTests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.swiftsourceinfo (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.swiftsourceinfo /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppTests.swiftmodule/Project/arm64-apple-ios-simulator.swiftsourceinfo
+
+Copy /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppTests.swiftmodule/arm64-apple-ios-simulator.abi.json /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.abi.json (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-copy -exclude .DS_Store -exclude CVS -exclude .svn -exclude .git -exclude .hg -resolve-src-symlinks -rename /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.abi.json /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppTests.swiftmodule/arm64-apple-ios-simulator.abi.json
+
+SwiftDriverJobDiscovery normal arm64 Compiling LoyaltyCardStoreTests.swift (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+
+SwiftDriver\ Compilation LoyaltyCardsAppTests normal arm64 com.apple.xcode.tools.swift.compiler (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-Swift-Compilation -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name LoyaltyCardsAppTests -Onone @/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.SwiftFileList -DDEBUG -plugin-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/plugins/testing -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -target arm64-apple-ios17.0-simulator -g -module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator -Isystem /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -F /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/Developer/Library/Frameworks -c -j10 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/imac/Library/Developer/Xcode/DerivedData/SDKStatCaches.noindex/iphonesimulator26.5-23F73-6cfe768891a92b912361537c460fe42b.sdkstatcache -output-file-map /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/imac/Library/Developer/Xcode/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests_const_extract_protocols.json -Xcc -iquote -Xcc /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-generated-files.hmap -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-own-target-headers.hmap -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-all-target-headers.hmap -Xcc -iquote -Xcc /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests-project-headers.hmap -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/DerivedSources-normal/arm64 -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/DerivedSources/arm64 -Xcc -I/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests-Swift.h -working-directory /Users/imac/Documents/cardless/LoyaltyCardsApp -experimental-emit-module-separately -disable-cmo
+
+Ld /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest/LoyaltyCardsAppTests normal (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios17.0-simulator -bundle -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk -O0 -L/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator -L/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib -F/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Library/Frameworks -iframework /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk/Developer/Library/Frameworks -filelist /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.LinkFileList -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @loader_path/Frameworks -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -dead_strip -bundle_loader /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/LoyaltyCardsApp -Xlinker -object_path_lto -Xlinker /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -Xlinker -dependency_info -Xlinker /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests_dependency_info.dat -fobjc-link-runtime -fprofile-instr-generate -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.swiftmodule @/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests-linker-args.resp -Xlinker -needed_framework -Xlinker XCTest -framework XCTest -Xlinker -needed-lXCTestSwiftSupport -lXCTestSwiftSupport /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/LoyaltyCardsApp.debug.dylib -Xlinker -no_adhoc_codesign -o /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest/LoyaltyCardsAppTests
+
+CopySwiftLibs /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest/LoyaltyCardsAppTests --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest/Frameworks --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest/PlugIns --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest/SystemExtensions --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+
+ExtractAppIntentsMetadata (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name LoyaltyCardsAppTests --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.5.sdk --xcode-version 17F42 --platform-family iOS --deployment-target 17.0 --bundle-identifier com.otterpia.cardless.tests --output /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest --target-triple arm64-apple-ios17.0-simulator --binary-file /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest/LoyaltyCardsAppTests --dependency-file /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests_dependency_info.dat --stringsdata-file /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.SwiftFileList --metadata-file-list /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests.DependencyMetadataFileList --static-metadata-file-list /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/LoyaltyCardsAppTests.DependencyStaticMetadataFileList --swift-const-vals-list /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppTests.build/Objects-normal/arm64/LoyaltyCardsAppTests.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-06-12 13:16:33.462 appintentsmetadataprocessor[8638:7326457] Starting appintentsmetadataprocessor export
+2026-06-12 13:16:33.466 appintentsmetadataprocessor[8638:7326457] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+CodeSign /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest (in target 'LoyaltyCardsAppTests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/PlugIns/LoyaltyCardsAppTests.xctest
+
+CodeSign /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/LoyaltyCardsApp.debug.dylib (in target 'LoyaltyCardsApp' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/LoyaltyCardsApp.debug.dylib
+/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/LoyaltyCardsApp.debug.dylib: replacing existing signature
+
+CodeSign /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/__preview.dylib (in target 'LoyaltyCardsApp' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/__preview.dylib
+/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app/__preview.dylib: replacing existing signature
+
+CodeSign /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app (in target 'LoyaltyCardsApp' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app
+/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app: replacing existing signature
+
+Validate /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app (in target 'LoyaltyCardsApp' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-validationUtility /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsApp.app -shallow-bundle -infoplist-subpath Info.plist
+
+ProcessInfoPlistFile /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppUITests-Runner.app/PlugIns/LoyaltyCardsAppUITests.xctest/Info.plist /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppUITests.build/empty-LoyaltyCardsAppUITests.plist (in target 'LoyaltyCardsAppUITests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-infoPlistUtility /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppUITests.build/empty-LoyaltyCardsAppUITests.plist -producttype com.apple.product-type.bundle.ui-testing -expandbuildsettings -format binary -platform iphonesimulator -additionalcontentfile /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppUITests.build/ProductTypeInfoPlistAdditions.plist -o /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppUITests-Runner.app/PlugIns/LoyaltyCardsAppUITests.xctest/Info.plist
+
+CopySwiftLibs /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppUITests-Runner.app/PlugIns/LoyaltyCardsAppUITests.xctest (in target 'LoyaltyCardsAppUITests' from project 'LoyaltyCardsApp')
+    cd /Users/imac/Documents/cardless/LoyaltyCardsApp
+    builtin-swiftStdLibTool --copy --verbose --sign - --scan-executable /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppUITests-Runner.app/PlugIns/LoyaltyCardsAppUITests.xctest/LoyaltyCardsAppUITests --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppUITests-Runner.app/PlugIns/LoyaltyCardsAppUITests.xctest/Frameworks --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppUITests-Runner.app/PlugIns/LoyaltyCardsAppUITests.xctest/PlugIns --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppUITests-Runner.app/PlugIns/LoyaltyCardsAppUITests.xctest/SystemExtensions --scan-folder /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppUITests-Runner.app/PlugIns/LoyaltyCardsAppUITests.xctest/Extensions --platform iphonesimulator --toolchain /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --destination /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Products/Debug-iphonesimulator/LoyaltyCardsAppUITests-Runner.app/PlugIns/LoyaltyCardsAppUITests.xctest/Frameworks --strip-bitcode --scan-executable /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libXCTestSwiftSupport.dylib --strip-bitcode-tool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/bitcode_strip --emit-dependency-info /Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Build/Intermediates.noindex/LoyaltyCardsApp.build/Debug-iphonesimulator/LoyaltyCardsAppUITests.build/SwiftStdLibToolInputDependencies.dep --filter-for-swift-os
+
+2026-06-12 13:16:34.550610+0200 LoyaltyCardsAppUITests-Runner[8643:7326661] [Default] Running tests...
+    t =      nans Interface orientation changed to Portrait
+Test Suite 'All tests' started at 2026-06-12 13:16:35.001.
+Test Suite 'LoyaltyCardsAppUITests.xctest' started at 2026-06-12 13:16:35.002.
+Test Suite 'LoyaltyCardsAppUITests' started at 2026-06-12 13:16:35.002.
+Test Case '-[LoyaltyCardsAppUITests.LoyaltyCardsAppUITests testEmptyWalletCanOpenAddCardAndApplySearchedPreset]' started.
+    t =     0.00s Start Test at 2026-06-12 13:16:35.002
+    t =     0.02s Set Up
+    t =     0.02s Open com.otterpia.cardless
+    t =     0.02s     Launch com.otterpia.cardless
+2026-06-12 13:16:35.069 xcodebuild[8626:7326290] [MT] IDELaunchParametersSnapshot: The operation couldn’t be completed. (DebuggerLLDB.DebuggerVersionStore.StoreError error 0.)
+2026-06-12 13:16:35.069 xcodebuild[8626:7326290] [MT] IDELaunchParametersSnapshot: no debugger version
+objc[8643]: Class UIAccessibilityLoaderWebShared is implemented in both /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebCore.axbundle/WebCore (0x106848310) and /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/AccessibilityBundles/WebKit.axbundle/WebKit (0x1060ec398). This may cause spurious casting failures and mysterious crashes. One of the duplicates must be removed or renamed.
+    t =     2.71s         Setting up automation session
+    t =     3.26s         Wait for com.otterpia.cardless to idle
+    t =     4.65s Waiting 5.0s for "No cards yet" StaticText to exist
+    t =     5.69s     Checking `Expect predicate `existsNoRetry == 1` for object "No cards yet" StaticText`
+    t =     5.69s         Checking existence of `"No cards yet" StaticText`
+    t =     5.78s Tap "emptyAddFirstCardButton" Button
+    t =     5.78s     Wait for com.otterpia.cardless to idle
+    t =     5.78s     Find the "emptyAddFirstCardButton" Button
+    t =     5.80s     Check for interrupting elements affecting "emptyAddFirstCardButton" Button
+    t =     5.82s     Synthesize event
+    t =     6.11s     Wait for com.otterpia.cardless to idle
+    t =     6.16s Waiting 5.0s for "Add Card" NavigationBar to exist
+    t =     7.20s     Checking `Expect predicate `existsNoRetry == 1` for object "Add Card" NavigationBar`
+    t =     7.20s         Checking existence of `"Add Card" NavigationBar`
+    t =     7.28s Waiting 5.0s for "brandPresetSearchField" TextField to exist
+    t =     8.32s     Checking `Expect predicate `existsNoRetry == 1` for object "brandPresetSearchField" TextField`
+    t =     8.32s         Checking existence of `"brandPresetSearchField" TextField`
+    t =     8.38s Tap "brandPresetSearchField" TextField
+    t =     8.38s     Wait for com.otterpia.cardless to idle
+    t =     8.38s     Find the "brandPresetSearchField" TextField
+    t =     8.41s     Check for interrupting elements affecting "brandPresetSearchField" TextField
+    t =     8.44s     Synthesize event
+    t =     8.73s     Wait for com.otterpia.cardless to idle
+    t =     8.73s Type 'rakuten' into "brandPresetSearchField" TextField
+    t =     8.73s     Wait for com.otterpia.cardless to idle
+    t =     8.74s     Find the "brandPresetSearchField" TextField
+    t =     8.79s     Check for interrupting elements affecting "brandPresetSearchField" TextField
+    t =     8.82s     Synthesize event
+    t =     9.14s     Wait for com.otterpia.cardless to idle
+    t =     9.26s Waiting 5.0s for "brandPreset.japan-rakuten-point" Button to exist
+    t =    10.30s     Checking `Expect predicate `existsNoRetry == 1` for object "brandPreset.japan-rakuten-point" Button`
+    t =    10.30s         Checking existence of `"brandPreset.japan-rakuten-point" Button`
+    t =    10.38s Tap "brandPreset.japan-rakuten-point" Button
+    t =    10.38s     Wait for com.otterpia.cardless to idle
+    t =    10.38s     Find the "brandPreset.japan-rakuten-point" Button
+    t =    10.42s     Check for interrupting elements affecting "brandPreset.japan-rakuten-point" Button
+    t =    10.46s     Synthesize event
+    t =    10.75s     Wait for com.otterpia.cardless to idle
+    t =    10.75s Waiting 5.0s for "storeNameField" TextField to exist
+    t =    11.79s     Checking `Expect predicate `existsNoRetry == 1` for object "storeNameField" TextField`
+    t =    11.79s         Checking existence of `"storeNameField" TextField`
+    t =    11.84s Find the "storeNameField" TextField
+    t =    11.88s Tear Down
+Test Case '-[LoyaltyCardsAppUITests.LoyaltyCardsAppUITests testEmptyWalletCanOpenAddCardAndApplySearchedPreset]' passed (12.126 seconds).
+Test Suite 'LoyaltyCardsAppUITests' passed at 2026-06-12 13:16:47.129.
+	 Executed 1 test, with 0 failures (0 unexpected) in 12.126 (12.127) seconds
+Test Suite 'LoyaltyCardsAppUITests.xctest' passed at 2026-06-12 13:16:47.130.
+	 Executed 1 test, with 0 failures (0 unexpected) in 12.126 (12.129) seconds
+Test Suite 'All tests' passed at 2026-06-12 13:16:47.131.
+	 Executed 1 test, with 0 failures (0 unexpected) in 12.126 (12.130) seconds
+2026-06-12 13:16:48.126173+0200 LoyaltyCardsApp[8658:7327167] [Assert] _dictationButton not yet initialized when setting up for the large content viewer.
+2026-06-12 13:16:48.127318+0200 LoyaltyCardsApp[8658:7327167] [Assert] _dictationButton not yet initialized when setting up for the large content viewer.
+Test Suite 'All tests' started at 2026-06-12 13:16:48.185.
+Test Suite 'LoyaltyCardsAppTests.xctest' started at 2026-06-12 13:16:48.185.
+Test Suite 'BarcodeFormatVisionTests' started at 2026-06-12 13:16:48.186.
+Test Case '-[LoyaltyCardsAppTests.BarcodeFormatVisionTests testBarcodeFormatsMapToVisionSymbologies]' started.
+Test Case '-[LoyaltyCardsAppTests.BarcodeFormatVisionTests testBarcodeFormatsMapToVisionSymbologies]' passed (0.001 seconds).
+Test Case '-[LoyaltyCardsAppTests.BarcodeFormatVisionTests testUnsupportedVisionSymbologyReturnsNil]' started.
+Test Case '-[LoyaltyCardsAppTests.BarcodeFormatVisionTests testUnsupportedVisionSymbologyReturnsNil]' passed (0.000 seconds).
+Test Case '-[LoyaltyCardsAppTests.BarcodeFormatVisionTests testVisionSymbologiesMapToBarcodeFormats]' started.
+Test Case '-[LoyaltyCardsAppTests.BarcodeFormatVisionTests testVisionSymbologiesMapToBarcodeFormats]' passed (0.000 seconds).
+Test Suite 'BarcodeFormatVisionTests' passed at 2026-06-12 13:16:48.188.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.001 (0.002) seconds
+Test Suite 'BarcodeImageFactoryTests' started at 2026-06-12 13:16:48.188.
+Test Case '-[LoyaltyCardsAppTests.BarcodeImageFactoryTests testBarcodeRenderingReusesCachedImages]' started.
+2026-06-12 13:16:48.212749+0200 LoyaltyCardsApp[8658:7327167] The filter 'CIPortraitEffectSpillCorrection' is not implemented in the bundle at /Library/Developer/CoreSimulator/Volumes/iOS_23F77/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS 26.5.simruntime/Contents/Resources/RuntimeRoot/System/Library/CoreImage/PortraitFilters.cifilter.
+Test Case '-[LoyaltyCardsAppTests.BarcodeImageFactoryTests testBarcodeRenderingReusesCachedImages]' passed (0.086 seconds).
+Test Case '-[LoyaltyCardsAppTests.BarcodeImageFactoryTests testBarcodeRenderingTrimsInput]' started.
+Test Case '-[LoyaltyCardsAppTests.BarcodeImageFactoryTests testBarcodeRenderingTrimsInput]' passed (0.022 seconds).
+Test Case '-[LoyaltyCardsAppTests.BarcodeImageFactoryTests testBlankBarcodeValueDoesNotRenderImage]' started.
+Test Case '-[LoyaltyCardsAppTests.BarcodeImageFactoryTests testBlankBarcodeValueDoesNotRenderImage]' passed (0.000 seconds).
+Test Case '-[LoyaltyCardsAppTests.BarcodeImageFactoryTests testSupportedFormatsRenderImages]' started.
+Test Case '-[LoyaltyCardsAppTests.BarcodeImageFactoryTests testSupportedFormatsRenderImages]' passed (0.022 seconds).
+Test Suite 'BarcodeImageFactoryTests' passed at 2026-06-12 13:16:48.319.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.130 (0.131) seconds
+Test Suite 'BrandPresetStoreTests' started at 2026-06-12 13:16:48.319.
+Test Case '-[LoyaltyCardsAppTests.BrandPresetStoreTests testPreviewPresetsPopulateRegionIndex]' started.
+Test Case '-[LoyaltyCardsAppTests.BrandPresetStoreTests testPreviewPresetsPopulateRegionIndex]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.BrandPresetStoreTests testStoreLoadsFileCachedRemotePresets]' started.
+Test Case '-[LoyaltyCardsAppTests.BrandPresetStoreTests testStoreLoadsFileCachedRemotePresets]' passed (0.001 seconds).
+Test Case '-[LoyaltyCardsAppTests.BrandPresetStoreTests testStoreLoadsLegacyDefaultsCache]' started.
+Test Case '-[LoyaltyCardsAppTests.BrandPresetStoreTests testStoreLoadsLegacyDefaultsCache]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.BrandPresetStoreTests testStoreRemovesCorruptFileCacheAndLoadsLegacyDefaultsCache]' started.
+Test Case '-[LoyaltyCardsAppTests.BrandPresetStoreTests testStoreRemovesCorruptFileCacheAndLoadsLegacyDefaultsCache]' passed (0.003 seconds).
+Test Suite 'BrandPresetStoreTests' passed at 2026-06-12 13:16:48.327.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.008 (0.008) seconds
+Test Suite 'LoyaltyBrandPresetTests' started at 2026-06-12 13:16:48.328.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testPresetDecodingBuildsStableIDAndSearchTokens]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testPresetDecodingBuildsStableIDAndSearchTokens]' passed (0.000 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testPresetDecodingDefaultsBarcodeFormatAndNote]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testPresetDecodingDefaultsBarcodeFormatAndNote]' passed (0.000 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testPresetSearchIgnoresPunctuation]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testPresetSearchIgnoresPunctuation]' passed (0.000 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testPresetSearchMatchesBrandCategoryAndRegion]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testPresetSearchMatchesBrandCategoryAndRegion]' passed (0.000 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testPresetSearchTrimsBlankQueries]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testPresetSearchTrimsBlankQueries]' passed (0.000 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testRegionLookupReturnsOnlyRequestedRegion]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyBrandPresetTests testRegionLookupReturnsOnlyRequestedRegion]' passed (0.000 seconds).
+Test Suite 'LoyaltyBrandPresetTests' passed at 2026-06-12 13:16:48.331.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.002 (0.004) seconds
+Test Suite 'LoyaltyCardStoreTests' started at 2026-06-12 13:16:48.331.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testCardsSortByFavoriteThenStoreName]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testCardsSortByFavoriteThenStoreName]' passed (0.004 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testDeleteRemovesPersistedCard]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testDeleteRemovesPersistedCard]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testExportCardsDataEncodesCurrentCards]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testExportCardsDataEncodesCurrentCards]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportCardsCollapsesDuplicateIDsToNewestCard]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportCardsCollapsesDuplicateIDsToNewestCard]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportCardsKeepsNewerExistingCardForDuplicateID]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportCardsKeepsNewerExistingCardForDuplicateID]' passed (0.001 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportCardsMergesAndPersistsCards]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportCardsMergesAndPersistsCards]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportCardsReplacesOlderExistingCardForDuplicateID]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportCardsReplacesOlderExistingCardForDuplicateID]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportPreviewCountCollapsesDuplicateIDs]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportPreviewCountCollapsesDuplicateIDs]' passed (0.001 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportPreviewCountValidatesWithoutMutating]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportPreviewCountValidatesWithoutMutating]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportPreviewSummaryCountsNewUpdatesAndSkippedWithoutMutating]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testImportPreviewSummaryCountsNewUpdatesAndSkippedWithoutMutating]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testLegacyCardDecodingDefaultsFavoriteToFalse]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testLegacyCardDecodingDefaultsFavoriteToFalse]' passed (0.001 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testMarkRecentlyViewedPersistsTimestamp]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testMarkRecentlyViewedPersistsTimestamp]' passed (0.003 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testMarkRecentlyViewedRefreshesRecentCardWhenItIsNotMostRecent]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testMarkRecentlyViewedRefreshesRecentCardWhenItIsNotMostRecent]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testMarkRecentlyViewedSkipsRecentMostRecentCard]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testMarkRecentlyViewedSkipsRecentMostRecentCard]' passed (0.001 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testRecentCardsSortByLastViewedAndLimitToFour]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testRecentCardsSortByLastViewedAndLimitToFour]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSaveAndReloadPreservesFavoriteState]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSaveAndReloadPreservesFavoriteState]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSaveNormalizesAndPersistsCard]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSaveNormalizesAndPersistsCard]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSavePreservesExistingFavoriteState]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSavePreservesExistingFavoriteState]' passed (0.003 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSavePreservesExistingRecentTimestamp]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSavePreservesExistingRecentTimestamp]' passed (0.003 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSaveSkipsUnchangedExistingCard]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSaveSkipsUnchangedExistingCard]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSaveUpdatesExistingCard]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testSaveUpdatesExistingCard]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testStoreLoadsDuplicateLegacyIDsWithoutCrashingAndTargetsLastDuplicate]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testStoreLoadsDuplicateLegacyIDsWithoutCrashingAndTargetsLastDuplicate]' passed (0.002 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testToggleFavoritePersistsAndUpdatesTimestamp]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardStoreTests testToggleFavoritePersistsAndUpdatesTimestamp]' passed (0.003 seconds).
+Test Suite 'LoyaltyCardStoreTests' passed at 2026-06-12 13:16:48.389.
+	 Executed 23 tests, with 0 failures (0 unexpected) in 0.048 (0.058) seconds
+Test Suite 'LoyaltyCardTests' started at 2026-06-12 13:16:48.389.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardTests testDisplayInitialsFallbackForBlankNames]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardTests testDisplayInitialsFallbackForBlankNames]' passed (0.001 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardTests testDisplayInitialsUseFirstTwoWords]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardTests testDisplayInitialsUseFirstTwoWords]' passed (0.000 seconds).
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardTests testFormattedUpdatedDateIsNotEmpty]' started.
+Test Case '-[LoyaltyCardsAppTests.LoyaltyCardTests testFormattedUpdatedDateIsNotEmpty]' passed (0.001 seconds).
+Test Suite 'LoyaltyCardTests' passed at 2026-06-12 13:16:48.393.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.002 (0.004) seconds
+Test Suite 'LoyaltyCardsAppTests.xctest' passed at 2026-06-12 13:16:48.393.
+	 Executed 43 tests, with 0 failures (0 unexpected) in 0.191 (0.208) seconds
+Test Suite 'All tests' passed at 2026-06-12 13:16:48.394.
+	 Executed 43 tests, with 0 failures (0 unexpected) in 0.191 (0.209) seconds
+2026-06-12 13:16:48.683 xcodebuild[8626:7326290] [MT] IDETestOperationsObserverDebug: 15.059 elapsed -- Testing started completed.
+2026-06-12 13:16:48.683 xcodebuild[8626:7326290] [MT] IDETestOperationsObserverDebug: 0.000 sec, +0.000 sec -- start
+2026-06-12 13:16:48.683 xcodebuild[8626:7326290] [MT] IDETestOperationsObserverDebug: 15.059 sec, +15.059 sec -- end
+
+Test session results, code coverage, and logs:
+	/Users/imac/Library/Developer/Xcode/DerivedData/LoyaltyCardsApp-deuhcwoqouaemrhhethvxrwtwkry/Logs/Test/Test-LoyaltyCardsApp-2026.06.12_13-16-30-+0200.xcresult
+
+** TEST SUCCEEDED **
+
+Testing started

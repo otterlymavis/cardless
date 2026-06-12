@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Rakuten Point",
+    "region": "Japan",
+    "category": "Multipartner",
+    "barcodeFormat": "QR Code",
+    "cardColor": "Coral",
+    "note": ""
+  },
+  {
+    "name": "Tesco Clubcard",
+    "region": "UK",
+    "category": "Grocery",
+    "barcodeFormat": "Code 128",
+    "cardColor": "Blue",
+    "note": ""
+  }
+]

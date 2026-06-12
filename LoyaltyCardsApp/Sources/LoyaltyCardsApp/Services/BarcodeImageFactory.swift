@@ -1,11 +1,27 @@
 import CoreImage
 import CoreImage.CIFilterBuiltins
+import Foundation
 import UIKit
 
 enum BarcodeImageFactory {
+    private static let context = CIContext()
+    private static let cache: NSCache<NSString, UIImage> = {
+        let cache = NSCache<NSString, UIImage>()
+        cache.countLimit = 32
+        cache.totalCostLimit = 4 * 1_024 * 1_024
+        return cache
+    }()
+
     static func image(for value: String, format: BarcodeFormat) -> UIImage? {
-        let context = CIContext()
-        let data = Data(value.utf8)
+        let trimmedValue = value.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedValue.isEmpty else { return nil }
+
+        let cacheKey = "\(format.rawValue):\(trimmedValue)" as NSString
+        if let cachedImage = cache.object(forKey: cacheKey) {
+            return cachedImage
+        }
+
+        let data = Data(trimmedValue.utf8)
         let filter: CIFilter
 
         switch format {
@@ -31,7 +47,9 @@ enum BarcodeImageFactory {
 
         guard let outputImage = filter.outputImage else { return nil }
         let scaledImage = outputImage.transformed(by: CGAffineTransform(scaleX: 8, y: 8))
-        guard let cgImage = context.createCGImage(scaledImage, from: scaledImage.extent) else { return nil }
-        return UIImage(cgImage: cgImage)
+        guard let cgImage = Self.context.createCGImage(scaledImage, from: scaledImage.extent) else { return nil }
+        let image = UIImage(cgImage: cgImage)
+        cache.setObject(image, forKey: cacheKey, cost: cgImage.bytesPerRow * cgImage.height)
+        return image
     }
 }

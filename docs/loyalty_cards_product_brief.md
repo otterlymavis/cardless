@@ -42,4 +42,4 @@ Each card needs only:
 
 ## Privacy stance
 
-The MVP should not make network requests. All card data stays on device unless the user later enables an explicit backup or sync feature.
+All card data stays on device unless the user later enables an explicit backup or sync feature. Optional brand preset metadata may be fetched from a configured JSON URL and cached locally; it must not upload saved card data.
