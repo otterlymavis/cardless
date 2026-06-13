@@ -23,12 +23,8 @@ struct CardListView: View {
                 || card.storeName.localizedCaseInsensitiveContains(query)
                 || card.barcodeValue.localizedCaseInsensitiveContains(query)
             else { return }
-
-            if card.isFavorite {
-                sections.favoriteCards.append(card)
-            } else {
-                sections.regularCards.append(card)
-            }
+            if card.isFavorite { sections.favoriteCards.append(card) }
+            else { sections.regularCards.append(card) }
         }
     }
 
@@ -39,11 +35,11 @@ struct CardListView: View {
 
         NavigationStack {
             ScrollView {
-                VStack(alignment: .leading, spacing: 22) {
-                    HeaderView(cardCount: cardStore.cards.count)
+                VStack(alignment: .leading, spacing: 18) {
+                    PixelHeaderView(cardCount: cardStore.cards.count)
 
                     if !recentCards.isEmpty {
-                        RecentCardsSection(cards: recentCards) { card in
+                        PixelRecentCardsSection(cards: recentCards) { card in
                             barcodeCard = card
                             cardStore.markRecentlyViewed(card)
                         } copyNumber: { card in
@@ -52,30 +48,23 @@ struct CardListView: View {
                     }
 
                     if cardSections.isEmpty {
-                        EmptyCardsView(isSearching: isSearching) {
+                        PixelEmptyCardsView(isSearching: isSearching) {
                             isAddingCard = true
                         }
                     } else {
-                        VStack(alignment: .leading, spacing: 18) {
+                        VStack(alignment: .leading, spacing: 14) {
                             if !cardSections.favoriteCards.isEmpty {
-                                CardSectionHeader(title: "Favorites", count: cardSections.favoriteCards.count)
-
-                                LazyVStack(spacing: 14) {
-                                    ForEach(cardSections.favoriteCards) { card in
-                                        cardLink(for: card)
-                                    }
+                                PixelSectionHeader(title: "FAVORITES", count: cardSections.favoriteCards.count)
+                                LazyVStack(spacing: 12) {
+                                    ForEach(cardSections.favoriteCards) { card in cardLink(for: card) }
                                 }
                             }
-
                             if !cardSections.regularCards.isEmpty {
                                 if !cardSections.favoriteCards.isEmpty {
-                                    CardSectionHeader(title: "Cards", count: cardSections.regularCards.count)
+                                    PixelSectionHeader(title: "CARDS", count: cardSections.regularCards.count)
                                 }
-
-                                LazyVStack(spacing: 14) {
-                                    ForEach(cardSections.regularCards) { card in
-                                        cardLink(for: card)
-                                    }
+                                LazyVStack(spacing: 12) {
+                                    ForEach(cardSections.regularCards) { card in cardLink(for: card) }
                                 }
                             }
                         }
@@ -85,22 +74,24 @@ struct CardListView: View {
                 .padding(.top, 10)
                 .padding(.bottom, 32)
             }
-            .background(AppTheme.background.ignoresSafeArea())
-            .navigationTitle("Cards")
+            .background {
+                Color(red: 0.94, green: 0.94, blue: 0.90)
+                    .ignoresSafeArea()
+                PixelGridBackground().ignoresSafeArea()
+            }
+            .navigationTitle("// ALL CARDS")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbarTitleDisplayMode(.inline)
+            .toolbarBackground(Color(red: 0.94, green: 0.94, blue: 0.90), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .searchable(text: $searchText, prompt: "Search cards")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Menu {
-                        Button {
-                            isImportingCards = true
-                        } label: {
+                        Button { isImportingCards = true } label: {
                             Label("Import Backup", systemImage: "square.and.arrow.down")
                         }
-
-                        Button {
-                            prepareExport()
-                        } label: {
+                        Button { prepareExport() } label: {
                             Label("Export Backup", systemImage: "square.and.arrow.up")
                         }
                         .disabled(cardStore.cards.isEmpty)
@@ -109,11 +100,8 @@ struct CardListView: View {
                     }
                     .accessibilityLabel("Backup options")
                 }
-
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        isAddingCard = true
-                    } label: {
+                    Button { isAddingCard = true } label: {
                         Label("Add card", systemImage: "plus")
                     }
                 }
@@ -126,53 +114,28 @@ struct CardListView: View {
                     CardEditorView(card: LoyaltyCard(storeName: "", barcodeValue: ""))
                 }
             }
-            .fullScreenCover(item: $barcodeCard) { card in
-                LargeBarcodeView(card: card)
-            }
-            .fileImporter(
-                isPresented: $isImportingCards,
-                allowedContentTypes: [.json],
-                allowsMultipleSelection: false,
-                onCompletion: handleImport
-            )
-            .fileExporter(
-                isPresented: $isExportingCards,
-                document: exportDocument,
-                contentType: .json,
-                defaultFilename: "cardless-cards",
-                onCompletion: handleExport
-            )
+            .fullScreenCover(item: $barcodeCard) { card in LargeBarcodeView(card: card) }
+            .fileImporter(isPresented: $isImportingCards, allowedContentTypes: [.json], allowsMultipleSelection: false, onCompletion: handleImport)
+            .fileExporter(isPresented: $isExportingCards, document: exportDocument, contentType: .json, defaultFilename: "cardless-cards", onCompletion: handleExport)
             .alert(item: $backupMessage) { message in
-                Alert(
-                    title: Text(message.title),
-                    message: Text(message.detail),
-                    dismissButton: .default(Text("OK"))
-                )
+                Alert(title: Text(message.title), message: Text(message.detail), dismissButton: .default(Text("OK")))
             }
             .alert(item: $importPreview) { preview in
                 Alert(
                     title: Text("Import Backup?"),
                     message: Text(preview.message),
-                    primaryButton: .default(Text("Import")) {
-                        confirmImport(preview)
-                    },
+                    primaryButton: .default(Text("Import")) { confirmImport(preview) },
                     secondaryButton: .cancel()
                 )
             }
-            .confirmationDialog(
-                "Delete Card?",
-                isPresented: pendingDeleteBinding,
-                titleVisibility: .visible
-            ) {
+            .confirmationDialog("Delete Card?", isPresented: pendingDeleteBinding, titleVisibility: .visible) {
                 if let card = pendingDeleteCard {
                     Button("Delete \(card.storeName)", role: .destructive) {
                         cardStore.delete(card)
                         pendingDeleteCard = nil
                     }
                 }
-                Button("Cancel", role: .cancel) {
-                    pendingDeleteCard = nil
-                }
+                Button("Cancel", role: .cancel) { pendingDeleteCard = nil }
             } message: {
                 if let card = pendingDeleteCard {
                     Text("This removes \(card.storeName) from Cardless. You can restore it later only if you have a backup.")
@@ -182,50 +145,27 @@ struct CardListView: View {
     }
 
     private func cardLink(for card: LoyaltyCard) -> some View {
-        NavigationLink(value: card) {
-            CardRow(card: card)
-        }
-        .buttonStyle(.plain)
-        .contextMenu {
-            Button {
-                barcodeCard = card
-                cardStore.markRecentlyViewed(card)
-            } label: {
-                Label("Show Barcode", systemImage: "barcode")
+        NavigationLink(value: card) { PixelCardRow(card: card) }
+            .buttonStyle(.plain)
+            .contextMenu {
+                Button { barcodeCard = card; cardStore.markRecentlyViewed(card) } label: {
+                    Label("Show Barcode", systemImage: "barcode")
+                }
+                Button { copyCardNumber(card) } label: {
+                    Label("Copy Number", systemImage: "doc.on.doc")
+                }
+                Button { cardStore.toggleFavorite(card) } label: {
+                    Label(card.isFavorite ? "Remove from Favorites" : "Add to Favorites",
+                          systemImage: card.isFavorite ? "star.slash" : "star")
+                }
+                Button(role: .destructive) { pendingDeleteCard = card } label: {
+                    Label("Delete card", systemImage: "trash")
+                }
             }
-
-            Button {
-                copyCardNumber(card)
-            } label: {
-                Label("Copy Number", systemImage: "doc.on.doc")
-            }
-
-            Button {
-                cardStore.toggleFavorite(card)
-            } label: {
-                Label(
-                    card.isFavorite ? "Remove from Favorites" : "Add to Favorites",
-                    systemImage: card.isFavorite ? "star.slash" : "star"
-                )
-            }
-
-            Button(role: .destructive) {
-                pendingDeleteCard = card
-            } label: {
-                Label("Delete card", systemImage: "trash")
-            }
-        }
     }
 
     private var pendingDeleteBinding: Binding<Bool> {
-        Binding(
-            get: { pendingDeleteCard != nil },
-            set: { isPresented in
-                if !isPresented {
-                    pendingDeleteCard = nil
-                }
-            }
-        )
+        Binding(get: { pendingDeleteCard != nil }, set: { if !$0 { pendingDeleteCard = nil } })
     }
 
     private func prepareExport() {
@@ -233,134 +173,77 @@ struct CardListView: View {
             exportDocument = CardBackupDocument(data: try cardStore.exportCardsData())
             isExportingCards = true
         } catch {
-            backupMessage = BackupMessage(
-                title: "Export failed",
-                detail: "Cardless could not prepare your backup file."
-            )
+            backupMessage = BackupMessage(title: "Export failed", detail: "Cardless could not prepare your backup file.")
         }
     }
 
     private func handleImport(_ result: Result<[URL], Error>) {
         do {
             guard let url = try result.get().first else { return }
-            guard url.startAccessingSecurityScopedResource() else {
-                throw CocoaError(.fileReadNoPermission)
-            }
+            guard url.startAccessingSecurityScopedResource() else { throw CocoaError(.fileReadNoPermission) }
             defer { url.stopAccessingSecurityScopedResource() }
-
-            if let fileSize = try url.resourceValues(forKeys: [.fileSizeKey]).fileSize,
-               fileSize > Self.maxImportFileBytes {
-                backupMessage = BackupMessage(
-                    title: "Import failed",
-                    detail: "Choose a smaller Cardless backup file."
-                )
+            if let fileSize = try url.resourceValues(forKeys: [.fileSizeKey]).fileSize, fileSize > Self.maxImportFileBytes {
+                backupMessage = BackupMessage(title: "Import failed", detail: "Choose a smaller Cardless backup file.")
                 return
             }
-
             let data = try Data(contentsOf: url)
             let summary = try cardStore.importPreviewSummary(from: data)
             guard summary.validCards > 0 else {
-                backupMessage = BackupMessage(
-                    title: "No cards found",
-                    detail: "This backup does not contain any usable Cardless cards."
-                )
+                backupMessage = BackupMessage(title: "No cards found", detail: "This backup does not contain any usable Cardless cards.")
                 return
             }
-
             importPreview = ImportPreview(data: data, summary: summary)
         } catch {
-            backupMessage = BackupMessage(
-                title: "Import failed",
-                detail: "Choose a valid Cardless JSON backup file."
-            )
+            backupMessage = BackupMessage(title: "Import failed", detail: "Choose a valid Cardless JSON backup file.")
         }
     }
 
     private func confirmImport(_ preview: ImportPreview) {
         do {
             try cardStore.importCards(from: preview.data)
-            backupMessage = BackupMessage(
-                title: "Import complete",
-                detail: preview.completionDetail
-            )
+            backupMessage = BackupMessage(title: "Import complete", detail: preview.completionDetail)
         } catch {
-            backupMessage = BackupMessage(
-                title: "Import failed",
-                detail: "Cardless could not import this backup."
-            )
+            backupMessage = BackupMessage(title: "Import failed", detail: "Cardless could not import this backup.")
         }
     }
 
     private func handleExport(_ result: Result<URL, Error>) {
         switch result {
-        case .success:
-            backupMessage = BackupMessage(
-                title: "Export complete",
-                detail: "Your Cardless backup file was saved."
-            )
-        case .failure:
-            backupMessage = BackupMessage(
-                title: "Export failed",
-                detail: "Cardless could not save your backup file."
-            )
+        case .success: backupMessage = BackupMessage(title: "Export complete", detail: "Your Cardless backup file was saved.")
+        case .failure: backupMessage = BackupMessage(title: "Export failed", detail: "Cardless could not save your backup file.")
         }
     }
 
     private func copyCardNumber(_ card: LoyaltyCard) {
         UIPasteboard.general.string = card.barcodeValue
-        backupMessage = BackupMessage(
-            title: "Copied",
-            detail: "\(card.storeName) membership number copied."
-        )
+        backupMessage = BackupMessage(title: "Copied", detail: "\(card.storeName) membership number copied.")
     }
 }
 
+// MARK: - Private types
+
 private struct BackupMessage: Identifiable {
-    let id = UUID()
-    let title: String
-    let detail: String
+    let id = UUID(); let title: String; let detail: String
 }
 
 private struct ImportPreview: Identifiable {
-    let id = UUID()
-    let data: Data
-    let summary: LoyaltyCardImportSummary
-
+    let id = UUID(); let data: Data; let summary: LoyaltyCardImportSummary
     var message: String {
-        guard summary.validCards > 0 else {
-            return "Cardless did not find any usable cards in this backup."
-        }
-
-        let detail = [
-            quantity(summary.newCards, singular: "new card"),
-            quantity(summary.updatedCards, singular: "card update"),
-            quantity(summary.skippedCards, singular: "older duplicate")
-        ]
-        .filter { !$0.hasPrefix("0 ") }
-        .joined(separator: ", ")
-
+        guard summary.validCards > 0 else { return "Cardless did not find any usable cards in this backup." }
+        let detail = [quantity(summary.newCards, singular: "new card"),
+                      quantity(summary.updatedCards, singular: "card update"),
+                      quantity(summary.skippedCards, singular: "older duplicate")]
+            .filter { !$0.hasPrefix("0 ") }.joined(separator: ", ")
         return "Cardless found \(quantity(summary.validCards, singular: "usable card")): \(detail)."
     }
-
     var completionDetail: String {
-        guard summary.appliedCards > 0 else {
-            return "No cards were changed because the backup only contained older duplicates."
-        }
-
-        let detail = [
-            quantity(summary.newCards, singular: "new card"),
-            quantity(summary.updatedCards, singular: "card update")
-        ]
-        .filter { !$0.hasPrefix("0 ") }
-        .joined(separator: ", ")
-
-        if summary.skippedCards > 0 {
-            return "Imported \(detail). Skipped \(quantity(summary.skippedCards, singular: "older duplicate"))."
-        }
-
+        guard summary.appliedCards > 0 else { return "No cards were changed because the backup only contained older duplicates." }
+        let detail = [quantity(summary.newCards, singular: "new card"),
+                      quantity(summary.updatedCards, singular: "card update")]
+            .filter { !$0.hasPrefix("0 ") }.joined(separator: ", ")
+        if summary.skippedCards > 0 { return "Imported \(detail). Skipped \(quantity(summary.skippedCards, singular: "older duplicate"))." }
         return "Imported \(detail)."
     }
-
     private func quantity(_ count: Int, singular: String) -> String {
         count == 1 ? "1 \(singular)" : "\(count) \(singular)s"
     }
@@ -369,268 +252,252 @@ private struct ImportPreview: Identifiable {
 private struct FilteredCardSections {
     var favoriteCards: [LoyaltyCard] = []
     var regularCards: [LoyaltyCard] = []
-
-    var isEmpty: Bool {
-        favoriteCards.isEmpty && regularCards.isEmpty
-    }
+    var isEmpty: Bool { favoriteCards.isEmpty && regularCards.isEmpty }
 }
 
-private struct CardSectionHeader: View {
-    let title: String
-    let count: Int
+// MARK: - Pixel sub-views
 
+private struct PixelSectionHeader: View {
+    let title: String; let count: Int
     var body: some View {
         HStack(spacing: 8) {
             Text(title)
-                .font(.caption.weight(.bold))
+                .font(.system(size: 10, weight: .black, design: .monospaced))
                 .foregroundStyle(AppTheme.muted)
-                .textCase(.uppercase)
-
-            Text("\(count)")
-                .font(.caption2.weight(.bold))
-                .foregroundStyle(AppTheme.ink.opacity(0.64))
-                .padding(.horizontal, 7)
-                .padding(.vertical, 3)
-                .background(AppTheme.surfaceTint, in: Capsule())
-
+            ZStack {
+                Rectangle().fill(AppTheme.ink).offset(x: 2, y: 2)
+                Rectangle()
+                    .fill(AppTheme.surface)
+                    .pixelBorder(width: 1.5)
+                    .overlay {
+                        Text("\(count)")
+                            .font(.system(size: 10, weight: .black, design: .monospaced))
+                            .foregroundStyle(AppTheme.ink)
+                    }
+            }
+            .frame(width: 28, height: 20)
             Spacer()
         }
         .padding(.horizontal, 2)
     }
 }
 
-private struct HeaderView: View {
+private struct PixelHeaderView: View {
     let cardCount: Int
-
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack(spacing: 12) {
-                Image(systemName: "sparkles")
-                    .font(.system(size: 18, weight: .bold))
-                    .foregroundStyle(AppTheme.ink)
-                    .frame(width: 44, height: 44)
-                    .background(AppTheme.surfaceTint, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        HStack(spacing: 14) {
+            ZStack {
+                Rectangle().fill(AppTheme.ink).offset(x: 4, y: 4)
+                Rectangle()
+                    .fill(AppTheme.lemon)
+                    .pixelBorder()
                     .overlay {
-                        RoundedRectangle(cornerRadius: 8, style: .continuous)
-                            .stroke(.white, lineWidth: 2)
+                        Text("░")
+                            .font(.system(size: 20, design: .monospaced))
+                            .foregroundStyle(AppTheme.ink.opacity(0.40))
                     }
-                    .accessibilityHidden(true)
-
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Cardless")
-                        .font(.system(size: 34, weight: .bold, design: .rounded))
-                        .foregroundStyle(AppTheme.ink)
-                    Text(cardCount == 1 ? "1 card saved" : "\(cardCount) cards saved")
-                        .font(.subheadline.weight(.medium))
-                        .foregroundStyle(AppTheme.muted)
-                }
             }
+            .frame(width: 52, height: 44)
+            .accessibilityHidden(true)
 
-            VStack(alignment: .leading, spacing: 6) {
-                Text("A tiny wallet for the cards you actually use.")
-                    .font(.callout.weight(.medium))
+            VStack(alignment: .leading, spacing: 4) {
+                Text("CARDLESS")
+                    .font(.system(size: 22, weight: .black, design: .monospaced))
+                    .foregroundStyle(AppTheme.ink)
+                Text(cardCount == 1 ? "1 CARD" : "\(cardCount) CARDS")
+                    .font(.system(size: 11, weight: .black, design: .monospaced))
                     .foregroundStyle(AppTheme.muted)
             }
         }
         .padding(16)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-        .shadow(color: AppTheme.softShadow, radius: 18, x: 0, y: 8)
+        .pixelCard(shadowX: 4, shadowY: 4)
     }
 }
 
-private struct RecentCardsSection: View {
+private struct PixelRecentCardsSection: View {
     let cards: [LoyaltyCard]
     let showBarcode: (LoyaltyCard) -> Void
     let copyNumber: (LoyaltyCard) -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Recent")
-                .font(.caption.weight(.bold))
+            Text("RECENT")
+                .font(.system(size: 10, weight: .black, design: .monospaced))
                 .foregroundStyle(AppTheme.muted)
-                .textCase(.uppercase)
                 .padding(.horizontal, 2)
 
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 10) {
                     ForEach(cards) { card in
-                        Button {
-                            showBarcode(card)
-                        } label: {
-                            RecentCardChip(card: card)
+                        Button { showBarcode(card) } label: {
+                            PixelRecentChip(card: card)
                         }
                         .buttonStyle(.plain)
                         .contextMenu {
-                            Button {
-                                copyNumber(card)
-                            } label: {
+                            Button { copyNumber(card) } label: {
                                 Label("Copy Number", systemImage: "doc.on.doc")
                             }
                         }
                     }
                 }
-                .padding(.vertical, 2)
+                .padding(.vertical, 4)
             }
         }
     }
 }
 
-private struct RecentCardChip: View {
+private struct PixelRecentChip: View {
     let card: LoyaltyCard
+    private var pal: (bg: Color, shadow: Color, text: Color) { PixelTheme.palette(for: abs(card.storeName.hashValue)) }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(card.displayInitials)
-                .font(.headline.weight(.bold))
-                .foregroundStyle(tint)
-                .frame(width: 42, height: 34)
-                .background(tint.opacity(0.15), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        VStack(alignment: .leading, spacing: 10) {
+            ZStack {
+                Rectangle().fill(pal.shadow).offset(x: 3, y: 3)
+                Rectangle()
+                    .fill(pal.bg)
+                    .pixelBorder()
+                    .overlay {
+                        Text(card.displayInitials)
+                            .font(.system(size: 12, weight: .black, design: .monospaced))
+                            .foregroundStyle(pal.text)
+                    }
+            }
+            .frame(width: 44, height: 34)
 
             VStack(alignment: .leading, spacing: 3) {
-                Text(card.storeName.isEmpty ? "Untitled card" : card.storeName)
-                    .font(.subheadline.weight(.bold))
+                Text(card.storeName.isEmpty ? "UNTITLED" : card.storeName.uppercased())
+                    .font(.system(size: 11, weight: .black, design: .monospaced))
                     .foregroundStyle(AppTheme.ink)
                     .lineLimit(1)
-                Text(card.barcodeFormat.rawValue)
-                    .font(.caption.weight(.semibold))
+                Text(card.barcodeFormat.rawValue.uppercased())
+                    .font(.system(size: 9, weight: .black, design: .monospaced))
                     .foregroundStyle(AppTheme.muted)
             }
         }
-        .frame(width: 138, alignment: .leading)
+        .frame(width: 130, alignment: .leading)
         .padding(12)
-        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .stroke(tint.opacity(0.12), lineWidth: 1)
-        }
-        .shadow(color: AppTheme.softShadow, radius: 12, x: 0, y: 6)
+        .pixelCard(shadowX: 3, shadowY: 3)
         .accessibilityElement(children: .combine)
         .accessibilityHint("Opens card details")
     }
-
-    private var tint: Color {
-        AppTheme.cardTint(for: card)
-    }
 }
 
-private struct EmptyCardsView: View {
+private struct PixelEmptyCardsView: View {
     let isSearching: Bool
     let addCard: () -> Void
 
     var body: some View {
-        VStack(spacing: 18) {
-            Image(systemName: isSearching ? "magnifyingglass" : "barcode.viewfinder")
-                .font(.system(size: 38, weight: .semibold))
-                .foregroundStyle(AppTheme.ink)
-                .frame(width: 76, height: 76)
-                .background(AppTheme.surfaceTint, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                .accessibilityHidden(true)
-
-            VStack(spacing: 6) {
-                Text(isSearching ? "No matching cards" : "No cards yet")
-                    .font(.title3.bold())
-                    .foregroundStyle(AppTheme.ink)
-                Text(isSearching ? "Try a store name or membership number." : "Add your first loyalty card and keep checkout light.")
-                    .font(.subheadline)
-                    .foregroundStyle(AppTheme.muted)
-                    .multilineTextAlignment(.center)
-                    .fixedSize(horizontal: false, vertical: true)
+        VStack(spacing: 16) {
+            ZStack {
+                Rectangle().fill(AppTheme.ink).offset(x: 5, y: 5)
+                Rectangle()
+                    .fill(AppTheme.surface)
+                    .pixelBorder()
+                    .overlay {
+                        VStack(spacing: 6) {
+                            Text("░░░░░░░░░")
+                                .font(.system(size: 16, design: .monospaced))
+                                .foregroundStyle(AppTheme.ink.opacity(0.20))
+                            Image(systemName: isSearching ? "magnifyingglass" : "barcode.viewfinder")
+                                .font(.system(size: 32, weight: .black))
+                                .foregroundStyle(AppTheme.ink)
+                            Text(isSearching ? "NO MATCHES" : "NO CARDS")
+                                .font(.system(size: 18, weight: .black, design: .monospaced))
+                                .foregroundStyle(AppTheme.ink)
+                            Text("░░░░░░░░░")
+                                .font(.system(size: 16, design: .monospaced))
+                                .foregroundStyle(AppTheme.ink.opacity(0.20))
+                        }
+                    }
             }
+            .frame(height: 160)
 
             if !isSearching {
                 Button(action: addCard) {
-                    Label("Add first card", systemImage: "plus")
-                        .font(.headline)
+                    Text("[ + ADD FIRST CARD ]")
+                        .font(.system(size: 14, weight: .black, design: .monospaced))
+                        .foregroundStyle(PixelTheme.white)
                         .frame(maxWidth: .infinity)
-                        .padding(.vertical, 14)
-                        .background(AppTheme.ink, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                        .foregroundStyle(.white)
+                        .padding(.vertical, 16)
+                        .background(AppTheme.ink)
+                        .pixelBorder()
+                        .pixelShadow(x: 4, y: 4, color: Color(red: 0.55, green: 0.48, blue: 0.00))
                 }
+                .buttonStyle(.plain)
                 .accessibilityIdentifier("emptyAddFirstCardButton")
             }
         }
         .frame(maxWidth: .infinity)
-        .padding(.horizontal, 24)
-        .padding(.vertical, 42)
-        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-        .shadow(color: AppTheme.softShadow, radius: 18, x: 0, y: 8)
+        .padding(.horizontal, 8)
+        .padding(.vertical, 24)
     }
 }
 
-private struct CardRow: View {
+private struct PixelCardRow: View {
     let card: LoyaltyCard
+    private var pal: (bg: Color, shadow: Color, text: Color) { PixelTheme.palette(for: abs(card.storeName.hashValue)) }
+    private let formattedDate: String
+
+    init(card: LoyaltyCard) {
+        self.card = card
+        self.formattedDate = card.formattedUpdatedDate
+    }
 
     var body: some View {
-        let formattedUpdatedDate = card.formattedUpdatedDate
-
         HStack(spacing: 14) {
+            // Initials box
             ZStack {
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .fill(tint.opacity(0.16))
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(tint.opacity(0.28), lineWidth: 1)
-                Text(card.displayInitials)
-                    .font(.headline.weight(.bold))
-                    .foregroundStyle(tint)
+                Rectangle().fill(pal.shadow).offset(x: 3, y: 3)
+                Rectangle()
+                    .fill(pal.bg)
+                    .pixelBorder()
+                    .overlay {
+                        Text(card.displayInitials)
+                            .font(.system(size: 13, weight: .black, design: .monospaced))
+                            .foregroundStyle(pal.text)
+                    }
             }
-            .frame(width: 58, height: 48)
+            .frame(width: 52, height: 44)
             .accessibilityHidden(true)
 
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .leading, spacing: 5) {
                 HStack(spacing: 6) {
-                    Text(card.storeName.isEmpty ? "Untitled card" : card.storeName)
-                        .font(.headline)
+                    Text(card.storeName.isEmpty ? "UNTITLED" : card.storeName.uppercased())
+                        .font(.system(size: 14, weight: .black, design: .monospaced))
                         .foregroundStyle(AppTheme.ink)
                         .lineLimit(1)
-
                     if card.isFavorite {
-                        Image(systemName: "star.fill")
-                            .font(.caption.weight(.black))
+                        Text("★")
+                            .font(.system(size: 12, weight: .black, design: .monospaced))
                             .foregroundStyle(AppTheme.lemon)
                             .accessibilityHidden(true)
                     }
                 }
-
-                HStack(spacing: 7) {
-                    Text(card.barcodeFormat.rawValue)
-                    Text("Updated \(formattedUpdatedDate)")
-                }
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(AppTheme.muted)
-                .lineLimit(1)
-                .minimumScaleFactor(0.82)
+                Text("\(card.barcodeFormat.rawValue.uppercased())  ·  \(formattedDate.uppercased())")
+                    .font(.system(size: 9, weight: .black, design: .monospaced))
+                    .foregroundStyle(AppTheme.muted)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
             }
 
             Spacer(minLength: 8)
 
-            Image(systemName: "chevron.right")
-                .font(.footnote.weight(.semibold))
-                .foregroundStyle(tint.opacity(0.72))
+            Text(">")
+                .font(.system(size: 14, weight: .black, design: .monospaced))
+                .foregroundStyle(AppTheme.ink.opacity(0.35))
                 .accessibilityHidden(true)
         }
-        .padding(15)
-        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .stroke(tint.opacity(0.12), lineWidth: 1)
-        }
-        .shadow(color: AppTheme.softShadow, radius: 14, x: 0, y: 7)
+        .padding(14)
+        .pixelCard(shadowX: 4, shadowY: 4)
         .accessibilityElement(children: .ignore)
-        .accessibilityLabel(accessibilityLabel(updatedDate: formattedUpdatedDate))
+        .accessibilityLabel("\(card.isFavorite ? "Favorite, " : "")\(card.storeName.isEmpty ? "Untitled card" : card.storeName), \(card.barcodeFormat.rawValue), updated \(formattedDate)")
         .accessibilityHint("Opens card details")
     }
-
-    private var tint: Color {
-        AppTheme.cardTint(for: card)
-    }
-
-    private func accessibilityLabel(updatedDate: String) -> String {
-        let favoriteText = card.isFavorite ? "Favorite, " : ""
-        let storeName = card.storeName.isEmpty ? "Untitled card" : card.storeName
-        return "\(favoriteText)\(storeName), \(card.barcodeFormat.rawValue), updated \(updatedDate)"
-    }
 }
+
+// MARK: - Previews
 
 #Preview("Cards") {
     CardListView()

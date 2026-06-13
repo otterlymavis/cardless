@@ -6,11 +6,8 @@ import SwiftUI
 /// and propagated via .environmentObject().
 @MainActor
 final class AppSettings: ObservableObject {
-    // MARK: Stored keys
     private static let regionKey   = "cardless.selectedBrandPresetRegion"
     private static let languageKey = "cardless.preferredLanguage"
-
-    // MARK: Published values
 
     @Published var selectedRegion: LoyaltyBrandRegion {
         didSet { UserDefaults.standard.set(selectedRegion.rawValue, forKey: Self.regionKey) }
@@ -19,8 +16,6 @@ final class AppSettings: ObservableObject {
     @Published var preferredLanguage: AppLanguage {
         didSet { UserDefaults.standard.set(preferredLanguage.rawValue, forKey: Self.languageKey) }
     }
-
-    // MARK: Init
 
     init() {
         let savedRegion = UserDefaults.standard.string(forKey: Self.regionKey)
@@ -44,7 +39,6 @@ enum AppLanguage: String, CaseIterable, Identifiable {
 
     var id: String { rawValue }
 
-    /// BCP-47 locale identifier used to filter brand suggestions
     var localeIdentifier: String? {
         switch self {
         case .system:   return nil
@@ -57,7 +51,6 @@ enum AppLanguage: String, CaseIterable, Identifiable {
         }
     }
 
-    /// The natural region this language maps to when auto-selecting
     var suggestedRegion: LoyaltyBrandRegion? {
         switch self {
         case .french:   return .france
@@ -88,110 +81,173 @@ struct SettingsView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                // MARK: Region
-                Section {
-                    ForEach(LoyaltyBrandRegion.allCases) { region in
-                        Button {
-                            withAnimation { settings.selectedRegion = region }
-                        } label: {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(region.displayName)
-                                        .font(.body.weight(.semibold))
-                                        .foregroundStyle(.primary)
-                                    Text(region.brandCountDescription)
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
-                                }
-                                Spacer()
-                                if settings.selectedRegion == region {
-                                    Image(systemName: "checkmark")
-                                        .font(.body.weight(.bold))
-                                        .foregroundStyle(.blue)
-                                }
-                            }
-                        }
-                        .accessibilityAddTraits(settings.selectedRegion == region ? .isSelected : [])
-                        .id(region.id)
-                    }
-                } header: {
-                    Label("Region", systemImage: "mappin.and.ellipse")
-                        .textCase(nil)
-                        .font(.subheadline.weight(.bold))
-                } footer: {
-                    Text("Brand recommendations in the card editor will prioritise this region by default.")
-                }
+            ScrollView {
+                VStack(alignment: .leading, spacing: 14) {
 
-                // MARK: Language
-                Section {
-                    ForEach(AppLanguage.allCases) { lang in
-                        Button {
-                            withAnimation {
-                                settings.preferredLanguage = lang
-                                // Auto-suggest matching region if user hasn't overridden
-                                if let suggested = lang.suggestedRegion {
-                                    settings.selectedRegion = suggested
-                                }
-                            }
-                        } label: {
-                            HStack(spacing: 12) {
-                                Text(lang.flag)
-                                    .font(.title3)
-                                VStack(alignment: .leading, spacing: 2) {
-                                    Text(lang.rawValue)
-                                        .font(.body.weight(.semibold))
-                                        .foregroundStyle(.primary)
-                                    if lang == .system {
-                                        Text(Locale.current.localizedString(forLanguageCode: Locale.current.language.languageCode?.identifier ?? "en") ?? "Device language")
-                                            .font(.caption)
-                                            .foregroundStyle(.secondary)
+                    // MARK: Region section
+                    PixelSettingsSection(title: "// REGION") {
+                        VStack(spacing: 0) {
+                            ForEach(LoyaltyBrandRegion.allCases) { region in
+                                Button {
+                                    withAnimation { settings.selectedRegion = region }
+                                } label: {
+                                    HStack(spacing: 12) {
+                                        VStack(alignment: .leading, spacing: 3) {
+                                            Text(region.displayName)
+                                                .font(.system(size: 13, weight: .black, design: .monospaced))
+                                                .foregroundStyle(AppTheme.ink)
+                                            Text(region.brandCountDescription.uppercased())
+                                                .font(.system(size: 9, weight: .black, design: .monospaced))
+                                                .foregroundStyle(AppTheme.muted)
+                                        }
+                                        Spacer()
+                                        if settings.selectedRegion == region {
+                                            Text("✓")
+                                                .font(.system(size: 14, weight: .black, design: .monospaced))
+                                                .foregroundStyle(AppTheme.ink)
+                                        }
                                     }
+                                    .padding(.horizontal, 14)
+                                    .padding(.vertical, 12)
+                                    .background(settings.selectedRegion == region
+                                                ? AppTheme.lemon.opacity(0.30)
+                                                : AppTheme.surface)
                                 }
-                                Spacer()
-                                if settings.preferredLanguage == lang {
-                                    Image(systemName: "checkmark")
-                                        .font(.body.weight(.bold))
-                                        .foregroundStyle(.blue)
+                                .buttonStyle(.plain)
+                                .accessibilityAddTraits(settings.selectedRegion == region ? .isSelected : [])
+                                .id(region.id)
+
+                                if region != LoyaltyBrandRegion.allCases.last {
+                                    Rectangle()
+                                        .fill(AppTheme.ink.opacity(0.12))
+                                        .frame(height: 1)
                                 }
                             }
                         }
-                        .accessibilityAddTraits(settings.preferredLanguage == lang ? .isSelected : [])
-                        .id(lang.id)
+                        .pixelBorder(width: 1.5, color: AppTheme.ink.opacity(0.50))
+                        .shadow(color: AppTheme.ink, radius: 0, x: 4, y: 4)
                     }
-                } header: {
-                    Label("Language", systemImage: "globe")
-                        .textCase(nil)
-                        .font(.subheadline.weight(.bold))
-                } footer: {
-                    Text("Changing language will also update the suggested region for brand search.")
-                }
 
-                // MARK: About
-                Section {
-                    LabeledContent("Version") {
-                        Text(Bundle.main.appVersionString)
-                            .foregroundStyle(.secondary)
+                    // MARK: Language section
+                    PixelSettingsSection(title: "// LANGUAGE") {
+                        VStack(spacing: 0) {
+                            ForEach(AppLanguage.allCases) { lang in
+                                Button {
+                                    withAnimation {
+                                        settings.preferredLanguage = lang
+                                        if let suggested = lang.suggestedRegion {
+                                            settings.selectedRegion = suggested
+                                        }
+                                    }
+                                } label: {
+                                    HStack(spacing: 12) {
+                                        Text(lang.flag)
+                                            .font(.system(size: 18))
+                                        VStack(alignment: .leading, spacing: 3) {
+                                            Text(lang.rawValue)
+                                                .font(.system(size: 13, weight: .black, design: .monospaced))
+                                                .foregroundStyle(AppTheme.ink)
+                                            if lang == .system {
+                                                Text((Locale.current.localizedString(forLanguageCode: Locale.current.language.languageCode?.identifier ?? "en") ?? "Device language").uppercased())
+                                                    .font(.system(size: 9, weight: .black, design: .monospaced))
+                                                    .foregroundStyle(AppTheme.muted)
+                                            }
+                                        }
+                                        Spacer()
+                                        if settings.preferredLanguage == lang {
+                                            Text("✓")
+                                                .font(.system(size: 14, weight: .black, design: .monospaced))
+                                                .foregroundStyle(AppTheme.ink)
+                                        }
+                                    }
+                                    .padding(.horizontal, 14)
+                                    .padding(.vertical, 12)
+                                    .background(settings.preferredLanguage == lang
+                                                ? AppTheme.lemon.opacity(0.30)
+                                                : AppTheme.surface)
+                                }
+                                .buttonStyle(.plain)
+                                .accessibilityAddTraits(settings.preferredLanguage == lang ? .isSelected : [])
+                                .id(lang.id)
+
+                                if lang != AppLanguage.allCases.last {
+                                    Rectangle()
+                                        .fill(AppTheme.ink.opacity(0.12))
+                                        .frame(height: 1)
+                                }
+                            }
+                        }
+                        .pixelBorder(width: 1.5, color: AppTheme.ink.opacity(0.50))
+                        .shadow(color: AppTheme.ink, radius: 0, x: 4, y: 4)
                     }
-                    LabeledContent("Storage") {
-                        Text("On-device only")
-                            .foregroundStyle(.secondary)
+
+                    // MARK: About section
+                    PixelSettingsSection(title: "// ABOUT") {
+                        VStack(spacing: 0) {
+                            PixelInfoRow(label: "VERSION", value: Bundle.main.appVersionString)
+                            Rectangle().fill(AppTheme.ink.opacity(0.12)).frame(height: 1)
+                            PixelInfoRow(label: "STORAGE", value: "ON-DEVICE ONLY")
+                            Rectangle().fill(AppTheme.ink.opacity(0.12)).frame(height: 1)
+                            PixelInfoRow(label: "MADE WITH", value: "SwiftUI ♥")
+                        }
+                        .pixelBorder(width: 1.5, color: AppTheme.ink.opacity(0.50))
+                        .shadow(color: AppTheme.ink, radius: 0, x: 4, y: 4)
                     }
-                } header: {
-                    Label("About", systemImage: "info.circle")
-                        .textCase(nil)
-                        .font(.subheadline.weight(.bold))
                 }
+                .padding(16)
             }
-            .navigationTitle("Settings")
-            .navigationBarTitleDisplayMode(.large)
+            .background {
+                Color(red: 0.94, green: 0.94, blue: 0.90)
+                    .ignoresSafeArea()
+                PixelGridBackground().ignoresSafeArea()
+            }
+            .navigationTitle("// SETTINGS")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbarBackground(Color(red: 0.94, green: 0.94, blue: 0.90), for: .navigationBar)
+            .toolbarBackground(.visible, for: .navigationBar)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
-                        .fontWeight(.semibold)
+                        .font(.system(size: 13, weight: .black, design: .monospaced))
                 }
             }
         }
+    }
+}
+
+// MARK: - Pixel sub-views
+
+private struct PixelSettingsSection<Content: View>: View {
+    let title: String
+    @ViewBuilder let content: Content
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            Text(title)
+                .font(.system(size: 11, weight: .black, design: .monospaced))
+                .foregroundStyle(AppTheme.muted)
+            content
+        }
+    }
+}
+
+private struct PixelInfoRow: View {
+    let label: String
+    let value: String
+
+    var body: some View {
+        HStack {
+            Text(label)
+                .font(.system(size: 11, weight: .black, design: .monospaced))
+                .foregroundStyle(AppTheme.muted)
+            Spacer()
+            Text(value)
+                .font(.system(size: 11, weight: .black, design: .monospaced))
+                .foregroundStyle(AppTheme.ink)
+        }
+        .padding(.horizontal, 14)
+        .padding(.vertical, 12)
+        .background(AppTheme.surface)
     }
 }
 

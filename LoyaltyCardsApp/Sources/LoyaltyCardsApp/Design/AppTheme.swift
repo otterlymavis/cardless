@@ -1,18 +1,23 @@
 import SwiftUI
 
+// AppTheme is now a pixel-style alias so every view using it
+// automatically inherits the 8-bit design language.
 enum AppTheme {
-    static let background = Color(red: 0.965, green: 0.98, blue: 0.988)
-    static let surface = Color.white
-    static let surfaceTint = Color(red: 0.992, green: 0.948, blue: 0.958)
-    static let ink = Color(red: 0.12, green: 0.125, blue: 0.15)
-    static let muted = Color(red: 0.42, green: 0.455, blue: 0.5)
-    static let mint = Color(red: 0.25, green: 0.68, blue: 0.58)
-    static let coral = Color(red: 0.96, green: 0.45, blue: 0.39)
-    static let blue = Color(red: 0.34, green: 0.55, blue: 0.88)
-    static let plum = Color(red: 0.63, green: 0.47, blue: 0.82)
-    static let lemon = Color(red: 0.96, green: 0.76, blue: 0.33)
+    static let background  = PixelTheme.bg
+    static let surface     = PixelTheme.white
+    static let surfaceTint = Color(red: 0.90, green: 0.90, blue: 0.86)
+    static let ink         = PixelTheme.ink
+    static let muted       = Color(red: 0.38, green: 0.38, blue: 0.35)
 
-    static let softShadow = Color(red: 0.42, green: 0.47, blue: 0.55).opacity(0.14)
+    // Named card colours (kept for CardColor enum compatibility)
+    static let mint  = PixelTheme.palettes[1].bg   // green
+    static let coral = PixelTheme.palettes[2].bg   // red
+    static let blue  = PixelTheme.palettes[3].bg   // blue
+    static let plum  = PixelTheme.palettes[4].bg   // purple
+    static let lemon = PixelTheme.palettes[0].bg   // yellow
+
+    // Shadows are now hard-offset pixel shadows (radius = 0 handled via extension)
+    static let softShadow = PixelTheme.ink.opacity(0.55)
 
     static func cardTint(for value: String) -> Color {
         let colors = [mint, coral, blue, plum, lemon]
@@ -21,25 +26,38 @@ enum AppTheme {
     }
 
     static func cardTint(for card: LoyaltyCard) -> Color {
-        if let cardColor = card.cardColor {
-            return color(for: cardColor)
-        }
-
+        if let cardColor = card.cardColor { return color(for: cardColor) }
         return cardTint(for: card.storeName)
     }
 
     static func color(for cardColor: CardColor) -> Color {
         switch cardColor {
-        case .mint:
-            return mint
-        case .coral:
-            return coral
-        case .blue:
-            return blue
-        case .plum:
-            return plum
-        case .lemon:
-            return lemon
+        case .mint:  return mint
+        case .coral: return coral
+        case .blue:  return blue
+        case .plum:  return plum
+        case .lemon: return lemon
         }
+    }
+}
+
+// MARK: - Pixel-style shape helpers used across all views
+
+extension View {
+    /// Square card block: flat fill + 2px border + hard shadow.
+    func pixelCard(fill: Color = AppTheme.surface,
+                   borderColor: Color = AppTheme.ink,
+                   shadowColor: Color = AppTheme.ink,
+                   shadowX: CGFloat = 4, shadowY: CGFloat = 4) -> some View {
+        self
+            .background(fill)
+            .overlay(Rectangle().stroke(borderColor, lineWidth: 2))
+            .shadow(color: shadowColor, radius: 0, x: shadowX, y: shadowY)
+    }
+
+    /// Monospaced label style.
+    func pixelLabel() -> some View {
+        self.font(.system(.caption, design: .monospaced).weight(.black))
+            .textCase(.uppercase)
     }
 }

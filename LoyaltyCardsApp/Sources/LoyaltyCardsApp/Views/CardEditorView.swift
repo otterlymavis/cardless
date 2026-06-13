@@ -25,84 +25,99 @@ struct CardEditorView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 14) {
+
+                // MARK: Card preview header
                 HStack(spacing: 14) {
-                    Text(card.displayInitials)
-                        .font(.title3.weight(.bold))
-                        .foregroundStyle(editorTint)
-                        .frame(width: 58, height: 48)
-                        .background(editorTint.opacity(0.16), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                .stroke(editorTint.opacity(0.26), lineWidth: 1)
-                        }
-                        .accessibilityHidden(true)
+                    ZStack {
+                        Rectangle().fill(editorTint).offset(x: 4, y: 4)
+                        Rectangle()
+                            .fill(editorTint.opacity(0.20))
+                            .pixelBorder()
+                            .overlay {
+                                Text(card.displayInitials)
+                                    .font(.system(size: 16, weight: .black, design: .monospaced))
+                                    .foregroundStyle(editorTint)
+                            }
+                    }
+                    .frame(width: 58, height: 48)
+                    .accessibilityHidden(true)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(card.storeName.isEmpty ? "New loyalty card" : card.storeName)
-                            .font(.title3.weight(.bold))
+                        Text(card.storeName.isEmpty ? "NEW CARD" : card.storeName.uppercased())
+                            .font(.system(size: 15, weight: .black, design: .monospaced))
                             .foregroundStyle(AppTheme.ink)
                             .lineLimit(1)
-                        Text(card.barcodeFormat.rawValue)
-                            .font(.subheadline.weight(.medium))
+                        Text(card.barcodeFormat.rawValue.uppercased())
+                            .font(.system(size: 10, weight: .black, design: .monospaced))
                             .foregroundStyle(AppTheme.muted)
                     }
-
                     Spacer()
                 }
                 .padding(16)
-                .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                .shadow(color: AppTheme.softShadow, radius: 16, x: 0, y: 8)
+                .pixelCard(shadowX: 4, shadowY: 4)
 
+                // MARK: Brand preset picker
                 if isNewCard && (!brandPresetStore.presets.isEmpty || brandPresetStore.isLoading) {
-                    EditorSection(title: "Popular brands") {
-                        BrandPresetPicker { preset in
-                            applyBrandPreset(preset)
-                        }
+                    PixelEditorSection(title: "POPULAR BRANDS") {
+                        BrandPresetPicker { preset in applyBrandPreset(preset) }
                     }
                 }
 
-                EditorSection(title: "Card details") {
-                    VStack(alignment: .leading, spacing: 8) {
-                        EditorFieldLabel("Store name")
+                // MARK: Card details
+                PixelEditorSection(title: "CARD DETAILS") {
+                    // Store name
+                    VStack(alignment: .leading, spacing: 6) {
+                        PixelFieldLabel("STORE NAME")
                         TextField("Market Club", text: $card.storeName)
                             .textInputAutocapitalization(.words)
                             .submitLabel(.next)
                             .textFieldStyle(.plain)
+                            .font(.system(.body, design: .monospaced))
                             .padding(12)
-                            .background(AppTheme.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            .background(AppTheme.background)
+                            .pixelBorder(width: 1.5, color: AppTheme.ink.opacity(0.40))
                             .accessibilityIdentifier("storeNameField")
                     }
 
-                    VStack(alignment: .leading, spacing: 8) {
-                        EditorFieldLabel("Membership number")
-                        HStack(spacing: 10) {
+                    // Membership number
+                    VStack(alignment: .leading, spacing: 6) {
+                        PixelFieldLabel("MEMBERSHIP NUMBER")
+                        HStack(spacing: 8) {
                             TextField("1234567890", text: $card.barcodeValue)
                                 .textInputAutocapitalization(.never)
                                 .autocorrectionDisabled()
                                 .keyboardType(.asciiCapable)
                                 .textFieldStyle(.plain)
+                                .font(.system(.body, design: .monospaced))
                                 .accessibilityIdentifier("barcodeValueField")
 
-                            Button {
-                                isScanningBarcode = true
-                            } label: {
-                                Image(systemName: "barcode.viewfinder")
-                                    .font(.headline)
-                                    .frame(width: 38, height: 38)
-                                    .background(editorTint, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-                                    .foregroundStyle(.white)
+                            Button { isScanningBarcode = true } label: {
+                                ZStack {
+                                    Rectangle().fill(editorTint).offset(x: 3, y: 3)
+                                    Rectangle()
+                                        .fill(AppTheme.ink)
+                                        .pixelBorder()
+                                        .overlay {
+                                            Image(systemName: "barcode.viewfinder")
+                                                .font(.system(size: 14, weight: .black))
+                                                .foregroundStyle(.white)
+                                        }
+                                }
+                                .frame(width: 40, height: 40)
                             }
                             .buttonStyle(.plain)
                             .accessibilityLabel("Scan barcode")
                         }
                         .padding(.leading, 12)
-                        .padding(.trailing, 5)
-                        .padding(.vertical, 5)
-                        .background(AppTheme.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                        .padding(.trailing, 6)
+                        .padding(.vertical, 6)
+                        .background(AppTheme.background)
+                        .pixelBorder(width: 1.5, color: AppTheme.ink.opacity(0.40))
                     }
 
+                    // Barcode type
                     HStack(spacing: 12) {
-                        EditorFieldLabel("Barcode type")
+                        PixelFieldLabel("BARCODE TYPE")
                         Spacer()
                         Picker("Barcode type", selection: $card.barcodeFormat) {
                             ForEach(BarcodeFormat.allCases) { format in
@@ -111,46 +126,62 @@ struct CardEditorView: View {
                         }
                         .pickerStyle(.menu)
                         .tint(editorTint)
+                        .font(.system(.body, design: .monospaced))
                     }
                     .padding(12)
-                    .background(AppTheme.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                    .background(AppTheme.background)
+                    .pixelBorder(width: 1.5, color: AppTheme.ink.opacity(0.40))
 
+                    // Cover colour
                     VStack(alignment: .leading, spacing: 8) {
-                        EditorFieldLabel("Cover color")
+                        PixelFieldLabel("COVER COLOUR")
                         CardColorPicker(selection: $card.cardColor)
                     }
                 }
 
-                EditorSection(title: "Optional") {
-                    VStack(alignment: .leading, spacing: 8) {
-                        EditorFieldLabel("Checkout note")
+                // MARK: Optional
+                PixelEditorSection(title: "OPTIONAL") {
+                    VStack(alignment: .leading, spacing: 6) {
+                        PixelFieldLabel("CHECKOUT NOTE")
                         TextField("Anything helpful at checkout", text: $card.note, axis: .vertical)
                             .lineLimit(2...4)
                             .textFieldStyle(.plain)
+                            .font(.system(.body, design: .monospaced))
                             .padding(12)
-                            .background(AppTheme.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                            .background(AppTheme.background)
+                            .pixelBorder(width: 1.5, color: AppTheme.ink.opacity(0.40))
                     }
                 }
 
-                Label("Saved only on this device", systemImage: "lock.fill")
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(AppTheme.muted)
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 10)
-                    .background(AppTheme.surfaceTint, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                // MARK: Privacy note
+                HStack(spacing: 8) {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 11, weight: .black))
+                    Text("SAVED ON THIS DEVICE ONLY")
+                        .font(.system(size: 10, weight: .black, design: .monospaced))
+                }
+                .foregroundStyle(AppTheme.muted)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 10)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(AppTheme.surfaceTint)
+                .pixelBorder(width: 1.5, color: AppTheme.ink.opacity(0.25))
             }
             .padding(16)
         }
-        .background(AppTheme.background.ignoresSafeArea())
-        .navigationTitle(isNewCard ? "Add Card" : "Edit Card")
+        .background {
+            Color(red: 0.94, green: 0.94, blue: 0.90).ignoresSafeArea()
+            PixelGridBackground().ignoresSafeArea()
+        }
+        .navigationTitle(isNewCard ? "// ADD CARD" : "// EDIT CARD")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(Color(red: 0.94, green: 0.94, blue: 0.90), for: .navigationBar)
+        .toolbarBackground(.visible, for: .navigationBar)
         .sheet(isPresented: $isScanningBarcode) {
             NavigationStack {
                 BarcodeScannerView { result in
                     card.barcodeValue = result.value
-                    if let format = result.format {
-                        card.barcodeFormat = format
-                    }
+                    if let format = result.format { card.barcodeFormat = format }
                     isScanningBarcode = false
                 } onUnavailable: { message in
                     scanErrorMessage = message
@@ -161,17 +192,13 @@ struct CardEditorView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel") {
-                            isScanningBarcode = false
-                        }
+                        Button("Cancel") { isScanningBarcode = false }
                     }
                 }
             }
         }
         .alert("Scanner unavailable", isPresented: scannerAlertBinding) {
-            Button("OK", role: .cancel) {
-                scanErrorMessage = nil
-            }
+            Button("OK", role: .cancel) { scanErrorMessage = nil }
         } message: {
             Text(scanErrorMessage ?? "You can still enter the number manually.")
         }
@@ -185,40 +212,31 @@ struct CardEditorView: View {
                     dismiss()
                 }
                 .disabled(!canSave)
+                .fontWeight(.black)
             }
         }
         .task {
-            if isNewCard {
-                await brandPresetStore.loadPresets()
-            }
+            if isNewCard { await brandPresetStore.loadPresets() }
         }
     }
 
-    private var editorTint: Color {
-        AppTheme.cardTint(for: card)
-    }
+    private var editorTint: Color { AppTheme.cardTint(for: card) }
 
     private var scannerAlertBinding: Binding<Bool> {
-        Binding(
-            get: { scanErrorMessage != nil },
-            set: { isPresented in
-                if !isPresented {
-                    scanErrorMessage = nil
-                }
-            }
-        )
+        Binding(get: { scanErrorMessage != nil }, set: { if !$0 { scanErrorMessage = nil } })
     }
 
     private func applyBrandPreset(_ preset: LoyaltyBrandPreset) {
         card.storeName = preset.name
         card.barcodeFormat = preset.barcodeFormat
         card.cardColor = preset.cardColor
-
         if card.note.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
             card.note = preset.cardNote
         }
     }
 }
+
+// MARK: - Brand Preset Picker
 
 private struct BrandPresetPicker: View {
     @EnvironmentObject private var presetStore: BrandPresetStore
@@ -233,34 +251,33 @@ private struct BrandPresetPicker: View {
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         let presets = presetStore.presets(for: selectedRegion)
         guard !query.isEmpty else { return presets }
-
         let regionalResults = presetStore.search(query, in: presets)
         return regionalResults.isEmpty ? presetStore.searchAll(query) : regionalResults
     }
 
     var body: some View {
-        let displayedPresets = displayedPresets
-        let selectedRegion = selectedRegion
+        let displayed = displayedPresets
+        let region = selectedRegion
 
-        VStack(alignment: .leading, spacing: 12) {
+        VStack(alignment: .leading, spacing: 10) {
+            // Search bar
             HStack(spacing: 8) {
                 Image(systemName: "magnifyingglass")
-                    .font(.subheadline.weight(.semibold))
+                    .font(.system(size: 12, weight: .black))
                     .foregroundStyle(AppTheme.muted)
                     .accessibilityHidden(true)
 
-                TextField("Search brands", text: $searchText)
+                TextField("SEARCH BRANDS", text: $searchText)
                     .textInputAutocapitalization(.words)
                     .autocorrectionDisabled()
                     .textFieldStyle(.plain)
+                    .font(.system(size: 13, weight: .black, design: .monospaced))
                     .accessibilityIdentifier("brandPresetSearchField")
 
                 if !searchText.isEmpty {
-                    Button {
-                        searchText = ""
-                    } label: {
-                        Image(systemName: "xmark.circle.fill")
-                            .font(.subheadline.weight(.semibold))
+                    Button { searchText = "" } label: {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 11, weight: .black))
                             .foregroundStyle(AppTheme.muted)
                     }
                     .buttonStyle(.plain)
@@ -269,147 +286,144 @@ private struct BrandPresetPicker: View {
             }
             .padding(.horizontal, 11)
             .padding(.vertical, 9)
-            .background(AppTheme.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+            .background(AppTheme.background)
+            .pixelBorder(width: 1.5, color: AppTheme.ink.opacity(0.40))
 
-            // Region tabs — selecting here also updates AppSettings so it persists
+            // Region tabs
             ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 8) {
-                    ForEach(LoyaltyBrandRegion.allCases) { region in
+                LazyHStack(spacing: 6) {
+                    ForEach(LoyaltyBrandRegion.allCases) { r in
                         Button {
-                            withAnimation { appSettings.selectedRegion = region }
+                            withAnimation { appSettings.selectedRegion = r }
                         } label: {
-                            Text(region.rawValue)
-                                .font(.caption.weight(.bold))
-                                .foregroundStyle(selectedRegion == region ? .white : AppTheme.ink)
-                                .padding(.horizontal, 11)
-                                .padding(.vertical, 8)
-                                .background(
-                                    selectedRegion == region ? AppTheme.ink : AppTheme.background,
-                                    in: RoundedRectangle(cornerRadius: 8, style: .continuous)
-                                )
+                            Text(r.rawValue.uppercased())
+                                .font(.system(size: 10, weight: .black, design: .monospaced))
+                                .foregroundStyle(region == r ? AppTheme.surface : AppTheme.ink)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 7)
+                                .background(region == r ? AppTheme.ink : AppTheme.background)
+                                .pixelBorder(width: 1.5, color: AppTheme.ink)
                         }
                         .buttonStyle(.plain)
-                        .accessibilityAddTraits(selectedRegion == region ? .isSelected : [])
+                        .accessibilityAddTraits(region == r ? .isSelected : [])
                     }
                 }
                 .padding(.vertical, 2)
             }
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                LazyHStack(spacing: 10) {
-                    ForEach(displayedPresets) { preset in
-                        Button {
-                            applyPreset(preset)
-                            searchText = ""
-                            withAnimation { appSettings.selectedRegion = preset.region }
-                        } label: {
-                            BrandPresetChip(preset: preset)
-                        }
-                        .buttonStyle(.plain)
-                        .accessibilityIdentifier("brandPreset.\(preset.id)")
-                    }
+            // Preset chips
+            if displayed.isEmpty {
+                HStack(spacing: 8) {
+                    Image(systemName: presetStore.isLoading ? "clock" : "magnifyingglass")
+                        .font(.system(size: 11, weight: .black))
+                    Text(presetStore.isLoading ? "LOADING..." : "NO BRANDS FOUND")
+                        .font(.system(size: 10, weight: .black, design: .monospaced))
                 }
-                .padding(.vertical, 2)
-            }
-
-            if displayedPresets.isEmpty {
-                Label(presetStore.isLoading ? "Loading brands" : "No matching brands", systemImage: "magnifyingglass")
-                    .font(.footnote.weight(.semibold))
-                    .foregroundStyle(AppTheme.muted)
-                    .padding(.horizontal, 11)
-                    .padding(.vertical, 9)
-                    .background(AppTheme.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+                .foregroundStyle(AppTheme.muted)
+                .padding(11)
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: 8) {
+                        ForEach(displayed) { preset in
+                            Button {
+                                applyPreset(preset)
+                                searchText = ""
+                                withAnimation { appSettings.selectedRegion = preset.region }
+                            } label: {
+                                BrandPresetChip(preset: preset)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityIdentifier("brandPreset.\(preset.id)")
+                        }
+                    }
+                    .padding(.vertical, 2)
+                }
             }
         }
     }
 }
+
+// MARK: - Brand Preset Chip
 
 private struct BrandPresetChip: View {
     let preset: LoyaltyBrandPreset
+    private var tint: Color { AppTheme.color(for: preset.cardColor) }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
-            Text(preset.name.displayInitials)
-                .font(.subheadline.weight(.bold))
-                .foregroundStyle(tint)
-                .frame(width: 38, height: 32)
-                .background(tint.opacity(0.16), in: RoundedRectangle(cornerRadius: 8, style: .continuous))
+        VStack(alignment: .leading, spacing: 8) {
+            ZStack {
+                Rectangle().fill(tint).offset(x: 3, y: 3)
+                Rectangle()
+                    .fill(tint.opacity(0.20))
+                    .pixelBorder()
+                    .overlay {
+                        Text(preset.name.displayInitials)
+                            .font(.system(size: 12, weight: .black, design: .monospaced))
+                            .foregroundStyle(tint)
+                    }
+            }
+            .frame(width: 38, height: 32)
 
-            VStack(alignment: .leading, spacing: 3) {
-                Text(preset.name)
-                    .font(.subheadline.weight(.bold))
+            VStack(alignment: .leading, spacing: 2) {
+                Text(preset.name.uppercased())
+                    .font(.system(size: 11, weight: .black, design: .monospaced))
                     .foregroundStyle(AppTheme.ink)
                     .lineLimit(1)
-                Text(preset.category)
-                    .font(.caption.weight(.semibold))
+                Text(preset.category.uppercased())
+                    .font(.system(size: 9, weight: .black, design: .monospaced))
                     .foregroundStyle(AppTheme.muted)
-                    .lineLimit(1)
-                Text(preset.region.rawValue)
-                    .font(.caption2.weight(.bold))
-                    .foregroundStyle(tint)
                     .lineLimit(1)
             }
         }
-        .frame(width: 132, alignment: .leading)
-        .padding(12)
-        .background(AppTheme.background, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .stroke(tint.opacity(0.14), lineWidth: 1)
-        }
+        .frame(width: 120, alignment: .leading)
+        .padding(10)
+        .pixelCard(fill: AppTheme.background, shadowX: 3, shadowY: 3)
         .accessibilityElement(children: .combine)
         .accessibilityHint("Fills common card details")
     }
-
-    private var tint: Color {
-        AppTheme.color(for: preset.cardColor)
-    }
 }
+
+// MARK: - Color picker
 
 private struct CardColorPicker: View {
     @Binding var selection: CardColor?
 
     var body: some View {
-        HStack(spacing: 9) {
+        HStack(spacing: 8) {
             colorButton(color: nil, label: "Auto", systemImage: "sparkles")
-
             ForEach(CardColor.allCases) { cardColor in
                 colorButton(color: cardColor, label: cardColor.rawValue)
             }
-
             Spacer(minLength: 0)
         }
     }
 
     private func colorButton(color: CardColor?, label: String, systemImage: String? = nil) -> some View {
-        Button {
+        let isSelected = selection == color
+        return Button {
             selection = color
         } label: {
             ZStack {
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .fill(fillColor(for: color))
-
+                Rectangle().fill(fillColor(for: color))
                 if let systemImage {
                     Image(systemName: systemImage)
-                        .font(.caption.weight(.bold))
+                        .font(.system(size: 11, weight: .black))
                         .foregroundStyle(AppTheme.ink)
                 }
-
-                if selection == color {
+                if isSelected {
                     Image(systemName: "checkmark")
-                        .font(.caption.weight(.black))
+                        .font(.system(size: 11, weight: .black))
                         .foregroundStyle(checkmarkColor(for: color))
                 }
             }
             .frame(width: 36, height: 36)
-            .overlay {
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .stroke(selection == color ? AppTheme.ink.opacity(0.48) : AppTheme.ink.opacity(0.08), lineWidth: 1)
-            }
+            .pixelBorder(width: isSelected ? 2 : 1.5,
+                         color: isSelected ? AppTheme.ink : AppTheme.ink.opacity(0.30))
+            .shadow(color: AppTheme.ink, radius: 0, x: isSelected ? 3 : 2, y: isSelected ? 3 : 2)
         }
         .buttonStyle(.plain)
         .accessibilityLabel(label)
-        .accessibilityAddTraits(selection == color ? .isSelected : [])
+        .accessibilityAddTraits(isSelected ? .isSelected : [])
     }
 
     private func fillColor(for color: CardColor?) -> Color {
@@ -422,38 +436,35 @@ private struct CardColorPicker: View {
     }
 }
 
-private struct EditorSection<Content: View>: View {
+// MARK: - Section + label helpers
+
+private struct PixelEditorSection<Content: View>: View {
     let title: String
     @ViewBuilder let content: Content
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text(title)
-                .font(.caption.weight(.bold))
+                .font(.system(size: 10, weight: .black, design: .monospaced))
                 .foregroundStyle(AppTheme.muted)
-                .textCase(.uppercase)
             content
         }
         .padding(16)
-        .background(AppTheme.surface, in: RoundedRectangle(cornerRadius: 8, style: .continuous))
-        .shadow(color: AppTheme.softShadow, radius: 14, x: 0, y: 7)
+        .pixelCard(shadowX: 4, shadowY: 4)
     }
 }
 
-private struct EditorFieldLabel: View {
+private struct PixelFieldLabel: View {
     let title: String
-
-    init(_ title: String) {
-        self.title = title
-    }
-
+    init(_ title: String) { self.title = title }
     var body: some View {
         Text(title)
-            .font(.caption.weight(.bold))
+            .font(.system(size: 9, weight: .black, design: .monospaced))
             .foregroundStyle(AppTheme.muted)
-            .textCase(.uppercase)
     }
 }
+
+// MARK: - Previews
 
 #Preview("Add") {
     NavigationStack {

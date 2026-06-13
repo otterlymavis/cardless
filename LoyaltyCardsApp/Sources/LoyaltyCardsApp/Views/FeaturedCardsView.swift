@@ -350,7 +350,7 @@ struct FeaturedCardsView: View {
 
 // MARK: - Dot grid background
 
-private struct PixelGridBackground: View {
+struct PixelGridBackground: View {
     var body: some View {
         Canvas { ctx, size in
             ctx.fill(Path(CGRect(origin: .zero, size: size)), with: .color(Color(red: 0.94, green: 0.94, blue: 0.90)))
