@@ -37,10 +37,11 @@ final class BrandPresetStoreTests: XCTestCase {
 
         let store = BrandPresetStore(userDefaults: userDefaults, presetURL: nil, cacheURL: cacheURL)
 
-        XCTAssertEqual(store.presets.map(\.name), ["Rakuten Point", "Boots Advantage Card"])
-        XCTAssertEqual(store.presets(for: .japan).map(\.name), ["Rakuten Point"])
-        XCTAssertEqual(store.presets(for: .unitedKingdom).map(\.name), ["Boots Advantage Card"])
-        XCTAssertEqual(store.searchAll("pharmacy").map(\.name), ["Boots Advantage Card"])
+        XCTAssertGreaterThanOrEqual(store.presets.count, 40)
+        XCTAssertTrue(store.presets(for: .japan).contains { $0.name == "Rakuten Point" })
+        XCTAssertTrue(store.presets(for: .unitedKingdom).contains { $0.name == "Boots Advantage Card" })
+        XCTAssertTrue(store.searchAll("pharmacy").contains { $0.name == "Boots Advantage Card" })
+        XCTAssertTrue(store.searchAll("tesco").contains { $0.name == "Tesco Clubcard" })
     }
 
     func testStoreLoadsLegacyDefaultsCache() throws {
@@ -51,8 +52,9 @@ final class BrandPresetStoreTests: XCTestCase {
 
         let store = BrandPresetStore(userDefaults: userDefaults, presetURL: nil, cacheURL: cacheURL)
 
-        XCTAssertEqual(store.presets.map(\.name), ["Rakuten Point"])
-        XCTAssertEqual(store.presets(for: .japan).map(\.name), ["Rakuten Point"])
+        XCTAssertGreaterThanOrEqual(store.presets.count, 40)
+        XCTAssertTrue(store.presets(for: .japan).contains { $0.name == "Rakuten Point" })
+        XCTAssertTrue(store.searchAll("tesco").contains { $0.name == "Tesco Clubcard" })
     }
 
     func testStoreRemovesCorruptFileCacheAndLoadsLegacyDefaultsCache() throws {
@@ -64,9 +66,52 @@ final class BrandPresetStoreTests: XCTestCase {
 
         let store = BrandPresetStore(userDefaults: userDefaults, presetURL: nil, cacheURL: cacheURL)
 
-        XCTAssertEqual(store.presets.map(\.name), ["Rakuten Point"])
-        XCTAssertEqual(store.presets(for: .japan).map(\.name), ["Rakuten Point"])
+        XCTAssertGreaterThanOrEqual(store.presets.count, 40)
+        XCTAssertTrue(store.presets(for: .japan).contains { $0.name == "Rakuten Point" })
+        XCTAssertTrue(store.searchAll("tesco").contains { $0.name == "Tesco Clubcard" })
         XCTAssertFalse(FileManager.default.fileExists(atPath: cacheURL.path))
+    }
+
+    func testCachedPresetsOverrideBuiltInPresetsWithMatchingID() throws {
+        let cachedPresets = [
+            LoyaltyBrandPreset(name: "Tesco Clubcard", region: .unitedKingdom, category: "Grocery Remote", cardColor: .plum)
+        ]
+        try JSONEncoder().encode(cachedPresets).write(to: cacheURL)
+
+        let store = BrandPresetStore(userDefaults: userDefaults, presetURL: nil, cacheURL: cacheURL)
+        let tescoPreset = try XCTUnwrap(store.searchAll("tesco").first { $0.name == "Tesco Clubcard" })
+
+        XCTAssertEqual(tescoPreset.category, "Grocery Remote")
+        XCTAssertEqual(tescoPreset.cardColor, .plum)
+        XCTAssertEqual(store.searchAll("tesco").filter { $0.name == "Tesco Clubcard" }.count, 1)
+    }
+
+    func testStoreFallsBackToBuiltInPresetsWhenFileCacheIsEmpty() throws {
+        try JSONEncoder().encode([LoyaltyBrandPreset]()).write(to: cacheURL)
+
+        let store = BrandPresetStore(userDefaults: userDefaults, presetURL: nil, cacheURL: cacheURL)
+
+        XCTAssertGreaterThanOrEqual(store.presets.count, 40)
+        XCTAssertTrue(store.searchAll("tesco").contains { $0.name == "Tesco Clubcard" })
+    }
+
+    func testStoreFallsBackToBuiltInPresetsWhenCacheIsEmpty() {
+        let store = BrandPresetStore(userDefaults: userDefaults, presetURL: nil, cacheURL: cacheURL)
+
+        XCTAssertGreaterThanOrEqual(store.presets.count, 40)
+        XCTAssertTrue(store.searchAll("tesco").contains { $0.name == "Tesco Clubcard" })
+        XCTAssertTrue(store.searchAll("rakuten").contains { $0.name == "Rakuten Point" })
+        XCTAssertTrue(store.searchAll("sephora").count >= 2)
+    }
+
+    func testSearchWithPreferredRegionIncludesAllMatchesWithRegionalResultsFirst() {
+        let store = BrandPresetStore(userDefaults: userDefaults, presetURL: nil, cacheURL: cacheURL)
+
+        let results = store.search("sephora", preferredRegion: .italy)
+
+        XCTAssertEqual(results.first?.name, "Sephora Beauty Pass Italy")
+        XCTAssertTrue(results.contains { $0.name == "Sephora France" })
+        XCTAssertTrue(results.contains { $0.name == "Sephora Beauty Insider" })
     }
 
     func testPreviewPresetsPopulateRegionIndex() {

@@ -1,18 +1,52 @@
 [
-  {
-    "name": "Rakuten Point",
-    "region": "Japan",
-    "category": "Multipartner",
-    "barcodeFormat": "QR Code",
-    "cardColor": "Coral",
-    "note": ""
-  },
-  {
-    "name": "Tesco Clubcard",
-    "region": "UK",
-    "category": "Grocery",
-    "barcodeFormat": "Code 128",
-    "cardColor": "Blue",
-    "note": ""
-  }
+  { "name": "Boots Advantage Card", "region": "UK", "category": "Pharmacy", "barcodeFormat": "Code 128", "cardColor": "Blue", "note": "" },
+  { "name": "Co-op Membership", "region": "UK", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Blue", "note": "" },
+  { "name": "IKEA Family UK", "region": "UK", "category": "Home", "barcodeFormat": "QR Code", "cardColor": "Lemon", "note": "" },
+  { "name": "M&S Sparks", "region": "UK", "category": "Retail", "barcodeFormat": "Code 128", "cardColor": "Plum", "note": "" },
+  { "name": "Morrisons More", "region": "UK", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Mint", "note": "" },
+  { "name": "My John Lewis", "region": "UK", "category": "Department Store", "barcodeFormat": "QR Code", "cardColor": "Blue", "note": "" },
+  { "name": "Nectar", "region": "UK", "category": "Multipartner", "barcodeFormat": "QR Code", "cardColor": "Plum", "note": "" },
+  { "name": "Superdrug Health & Beautycard", "region": "UK", "category": "Pharmacy", "barcodeFormat": "Code 128", "cardColor": "Coral", "note": "" },
+  { "name": "Tesco Clubcard", "region": "UK", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Blue", "note": "" },
+  { "name": "Waitrose MyWaitrose", "region": "UK", "category": "Grocery", "barcodeFormat": "QR Code", "cardColor": "Mint", "note": "" },
+
+  { "name": "Bennet Club", "region": "Italy", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Blue", "note": "" },
+  { "name": "Carrefour Payback", "region": "Italy", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Blue", "note": "" },
+  { "name": "Conad Carta Insieme", "region": "Italy", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Coral", "note": "" },
+  { "name": "Coop Carta Socio", "region": "Italy", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Blue", "note": "" },
+  { "name": "Esselunga Fidaty", "region": "Italy", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Lemon", "note": "" },
+  { "name": "Feltrinelli Carta Piu", "region": "Italy", "category": "Books", "barcodeFormat": "QR Code", "cardColor": "Plum", "note": "" },
+  { "name": "IKEA Family Italy", "region": "Italy", "category": "Home", "barcodeFormat": "QR Code", "cardColor": "Lemon", "note": "" },
+  { "name": "Pam Panorama Per Te", "region": "Italy", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Mint", "note": "" },
+  { "name": "Sephora Beauty Pass Italy", "region": "Italy", "category": "Beauty", "barcodeFormat": "QR Code", "cardColor": "Plum", "note": "" },
+  { "name": "Tigota Club", "region": "Italy", "category": "Beauty", "barcodeFormat": "Code 128", "cardColor": "Coral", "note": "" },
+
+  { "name": "Auchan Waaoh", "region": "France", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Coral", "note": "" },
+  { "name": "Carrefour France", "region": "France", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Blue", "note": "" },
+  { "name": "Casino Max", "region": "France", "category": "Grocery", "barcodeFormat": "QR Code", "cardColor": "Mint", "note": "" },
+  { "name": "E.Leclerc", "region": "France", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Blue", "note": "" },
+  { "name": "Fnac", "region": "France", "category": "Books & Tech", "barcodeFormat": "QR Code", "cardColor": "Lemon", "note": "" },
+  { "name": "Intermarche", "region": "France", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Coral", "note": "" },
+  { "name": "Monoprix", "region": "France", "category": "Grocery", "barcodeFormat": "QR Code", "cardColor": "Plum", "note": "" },
+  { "name": "Sephora France", "region": "France", "category": "Beauty", "barcodeFormat": "QR Code", "cardColor": "Plum", "note": "" },
+
+  { "name": "7-Eleven Japan", "region": "Japan", "category": "Convenience", "barcodeFormat": "QR Code", "cardColor": "Coral", "note": "" },
+  { "name": "AEON Point", "region": "Japan", "category": "Grocery", "barcodeFormat": "QR Code", "cardColor": "Mint", "note": "" },
+  { "name": "d Point", "region": "Japan", "category": "Multipartner", "barcodeFormat": "QR Code", "cardColor": "Lemon", "note": "" },
+  { "name": "FamilyMart FamiPay", "region": "Japan", "category": "Convenience", "barcodeFormat": "QR Code", "cardColor": "Mint", "note": "" },
+  { "name": "Lawson Ponta", "region": "Japan", "category": "Convenience", "barcodeFormat": "QR Code", "cardColor": "Blue", "note": "" },
+  { "name": "Matsukiyo Cocokara", "region": "Japan", "category": "Pharmacy", "barcodeFormat": "QR Code", "cardColor": "Lemon", "note": "" },
+  { "name": "Rakuten Point", "region": "Japan", "category": "Multipartner", "barcodeFormat": "QR Code", "cardColor": "Coral", "note": "" },
+  { "name": "T Point", "region": "Japan", "category": "Multipartner", "barcodeFormat": "QR Code", "cardColor": "Blue", "note": "" },
+  { "name": "WAON Point", "region": "Japan", "category": "Multipartner", "barcodeFormat": "QR Code", "cardColor": "Mint", "note": "" },
+
+  { "name": "Best Buy Rewards", "region": "North America", "category": "Electronics", "barcodeFormat": "QR Code", "cardColor": "Blue", "note": "" },
+  { "name": "CVS ExtraCare", "region": "North America", "category": "Pharmacy", "barcodeFormat": "Code 128", "cardColor": "Coral", "note": "" },
+  { "name": "Kroger Plus", "region": "North America", "category": "Grocery", "barcodeFormat": "Code 128", "cardColor": "Blue", "note": "" },
+  { "name": "Petco Vital Care", "region": "North America", "category": "Pet Supplies", "barcodeFormat": "QR Code", "cardColor": "Mint", "note": "" },
+  { "name": "REI Co-op", "region": "North America", "category": "Outdoor", "barcodeFormat": "QR Code", "cardColor": "Mint", "note": "" },
+  { "name": "Sephora Beauty Insider", "region": "North America", "category": "Beauty", "barcodeFormat": "QR Code", "cardColor": "Plum", "note": "" },
+  { "name": "Starbucks Rewards", "region": "North America", "category": "Coffee", "barcodeFormat": "QR Code", "cardColor": "Mint", "note": "" },
+  { "name": "Target Circle", "region": "North America", "category": "Retail", "barcodeFormat": "QR Code", "cardColor": "Coral", "note": "" },
+  { "name": "Walgreens myWalgreens", "region": "North America", "category": "Pharmacy", "barcodeFormat": "Code 128", "cardColor": "Blue", "note": "" }
 ]

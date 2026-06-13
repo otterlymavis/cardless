@@ -423,9 +423,9 @@ private struct PixelEmptyCardsView: View {
                         .padding(.vertical, 16)
                         .background(AppTheme.ink)
                         .pixelBorder()
-                        .pixelShadow(x: 4, y: 4, color: Color(red: 0.55, green: 0.48, blue: 0.00))
                 }
                 .buttonStyle(.plain)
+                .pixelShadow(x: 4, y: 4, color: Color(red: 0.55, green: 0.48, blue: 0.00))
                 .accessibilityIdentifier("emptyAddFirstCardButton")
             }
         }

@@ -201,6 +201,7 @@ struct SettingsView: View {
                     .ignoresSafeArea()
                 PixelGridBackground().ignoresSafeArea()
             }
+            .accessibilityIdentifier("settingsView")
             .navigationTitle("// SETTINGS")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarBackground(Color(red: 0.94, green: 0.94, blue: 0.90), for: .navigationBar)

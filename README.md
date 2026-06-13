@@ -10,7 +10,7 @@ Core MVP features:
 
 - Searchable list of locally saved loyalty cards.
 - Add, edit, delete, and favorite card details.
-- Optional remote brand presets for faster setup, cached on device.
+- Built-in brand presets, with optional remote additions cached on device.
 - Recent cards for fast checkout access.
 - Custom card colors.
 - Offline camera barcode scanning for faster card entry.

@@ -59,12 +59,13 @@ final class BrandPresetStore: ObservableObject {
 
             let decodedPresets = try decodedPresets(from: data)
             guard !decodedPresets.isEmpty else { return }
-            guard decodedPresets != presets else {
+            let mergedPresets = Self.mergedPresets(with: decodedPresets)
+            guard mergedPresets != presets else {
                 userDefaults.set(Date(), forKey: Self.lastFetchKey)
                 return
             }
 
-            setPresets(decodedPresets)
+            setPresets(mergedPresets)
             persistCache(data)
             userDefaults.set(Date(), forKey: Self.lastFetchKey)
         } catch {
@@ -84,6 +85,14 @@ final class BrandPresetStore: ObservableObject {
         LoyaltyBrandPreset.search(query, in: presets)
     }
 
+    func search(_ query: String, preferredRegion: LoyaltyBrandRegion) -> [LoyaltyBrandPreset] {
+        let allResults = searchAll(query)
+        let regionalResults = allResults.filter { $0.region == preferredRegion }
+        let otherResults = allResults.filter { $0.region != preferredRegion }
+
+        return regionalResults + otherResults
+    }
+
     private func loadCachedPresets() {
         setPresets(cachedPresets())
     }
@@ -91,7 +100,7 @@ final class BrandPresetStore: ObservableObject {
     private func cachedPresets() -> [LoyaltyBrandPreset] {
         if let data = try? Data(contentsOf: cacheURL) {
             if let decodedPresets = try? decodedPresets(from: data) {
-                return decodedPresets
+                return Self.mergedPresets(with: decodedPresets)
             }
 
             try? FileManager.default.removeItem(at: cacheURL)
@@ -99,10 +108,10 @@ final class BrandPresetStore: ObservableObject {
 
         guard let data = userDefaults.data(forKey: Self.cacheKey),
               let decodedPresets = try? decodedPresets(from: data) else {
-            return []
+            return Self.defaultPresets
         }
 
-        return decodedPresets
+        return Self.mergedPresets(with: decodedPresets)
     }
 
     private func persistCache(_ data: Data) {
@@ -131,6 +140,24 @@ final class BrandPresetStore: ObservableObject {
         }
     }
 
+    private static func mergedPresets(with remotePresets: [LoyaltyBrandPreset]) -> [LoyaltyBrandPreset] {
+        guard !remotePresets.isEmpty else { return defaultPresets }
+
+        var mergedPresets = defaultPresets
+        var indexesByID = Dictionary(uniqueKeysWithValues: defaultPresets.enumerated().map { ($0.element.id, $0.offset) })
+
+        for preset in remotePresets {
+            if let index = indexesByID[preset.id] {
+                mergedPresets[index] = preset
+            } else {
+                indexesByID[preset.id] = mergedPresets.count
+                mergedPresets.append(preset)
+            }
+        }
+
+        return mergedPresets
+    }
+
     private var shouldRefreshPresets: Bool {
         guard !presets.isEmpty,
               let lastFetch = userDefaults.object(forKey: Self.lastFetchKey) as? Date else {
@@ -154,6 +181,59 @@ final class BrandPresetStore: ObservableObject {
             .urls(for: .cachesDirectory, in: .userDomainMask)[0]
             .appendingPathComponent("brand-presets.json")
     }
+
+    static let defaultPresets: [LoyaltyBrandPreset] = [
+        LoyaltyBrandPreset(name: "Boots Advantage Card", region: .unitedKingdom, category: "Pharmacy", cardColor: .blue),
+        LoyaltyBrandPreset(name: "Co-op Membership", region: .unitedKingdom, category: "Grocery", cardColor: .blue),
+        LoyaltyBrandPreset(name: "IKEA Family UK", region: .unitedKingdom, category: "Home", barcodeFormat: .qr, cardColor: .lemon),
+        LoyaltyBrandPreset(name: "M&S Sparks", region: .unitedKingdom, category: "Retail", cardColor: .plum),
+        LoyaltyBrandPreset(name: "Morrisons More", region: .unitedKingdom, category: "Grocery", cardColor: .mint),
+        LoyaltyBrandPreset(name: "My John Lewis", region: .unitedKingdom, category: "Department Store", barcodeFormat: .qr, cardColor: .blue),
+        LoyaltyBrandPreset(name: "Nectar", region: .unitedKingdom, category: "Multipartner", barcodeFormat: .qr, cardColor: .plum),
+        LoyaltyBrandPreset(name: "Superdrug Health & Beautycard", region: .unitedKingdom, category: "Pharmacy", cardColor: .coral),
+        LoyaltyBrandPreset(name: "Tesco Clubcard", region: .unitedKingdom, category: "Grocery", cardColor: .blue),
+        LoyaltyBrandPreset(name: "Waitrose MyWaitrose", region: .unitedKingdom, category: "Grocery", barcodeFormat: .qr, cardColor: .mint),
+
+        LoyaltyBrandPreset(name: "Bennet Club", region: .italy, category: "Grocery", cardColor: .blue),
+        LoyaltyBrandPreset(name: "Carrefour Payback", region: .italy, category: "Grocery", cardColor: .blue),
+        LoyaltyBrandPreset(name: "Conad Carta Insieme", region: .italy, category: "Grocery", cardColor: .coral),
+        LoyaltyBrandPreset(name: "Coop Carta Socio", region: .italy, category: "Grocery", cardColor: .blue),
+        LoyaltyBrandPreset(name: "Esselunga Fidaty", region: .italy, category: "Grocery", cardColor: .lemon),
+        LoyaltyBrandPreset(name: "Feltrinelli Carta Piu", region: .italy, category: "Books", barcodeFormat: .qr, cardColor: .plum),
+        LoyaltyBrandPreset(name: "IKEA Family Italy", region: .italy, category: "Home", barcodeFormat: .qr, cardColor: .lemon),
+        LoyaltyBrandPreset(name: "Pam Panorama Per Te", region: .italy, category: "Grocery", cardColor: .mint),
+        LoyaltyBrandPreset(name: "Sephora Beauty Pass Italy", region: .italy, category: "Beauty", barcodeFormat: .qr, cardColor: .plum),
+        LoyaltyBrandPreset(name: "Tigota Club", region: .italy, category: "Beauty", cardColor: .coral),
+
+        LoyaltyBrandPreset(name: "Auchan Waaoh", region: .france, category: "Grocery", cardColor: .coral),
+        LoyaltyBrandPreset(name: "Carrefour France", region: .france, category: "Grocery", cardColor: .blue),
+        LoyaltyBrandPreset(name: "Casino Max", region: .france, category: "Grocery", barcodeFormat: .qr, cardColor: .mint),
+        LoyaltyBrandPreset(name: "E.Leclerc", region: .france, category: "Grocery", cardColor: .blue),
+        LoyaltyBrandPreset(name: "Fnac", region: .france, category: "Books & Tech", barcodeFormat: .qr, cardColor: .lemon),
+        LoyaltyBrandPreset(name: "Intermarche", region: .france, category: "Grocery", cardColor: .coral),
+        LoyaltyBrandPreset(name: "Monoprix", region: .france, category: "Grocery", barcodeFormat: .qr, cardColor: .plum),
+        LoyaltyBrandPreset(name: "Sephora France", region: .france, category: "Beauty", barcodeFormat: .qr, cardColor: .plum),
+
+        LoyaltyBrandPreset(name: "7-Eleven Japan", region: .japan, category: "Convenience", barcodeFormat: .qr, cardColor: .coral),
+        LoyaltyBrandPreset(name: "AEON Point", region: .japan, category: "Grocery", barcodeFormat: .qr, cardColor: .mint),
+        LoyaltyBrandPreset(name: "d Point", region: .japan, category: "Multipartner", barcodeFormat: .qr, cardColor: .lemon),
+        LoyaltyBrandPreset(name: "FamilyMart FamiPay", region: .japan, category: "Convenience", barcodeFormat: .qr, cardColor: .mint),
+        LoyaltyBrandPreset(name: "Lawson Ponta", region: .japan, category: "Convenience", barcodeFormat: .qr, cardColor: .blue),
+        LoyaltyBrandPreset(name: "Matsukiyo Cocokara", region: .japan, category: "Pharmacy", barcodeFormat: .qr, cardColor: .lemon),
+        LoyaltyBrandPreset(name: "Rakuten Point", region: .japan, category: "Multipartner", barcodeFormat: .qr, cardColor: .coral),
+        LoyaltyBrandPreset(name: "T Point", region: .japan, category: "Multipartner", barcodeFormat: .qr, cardColor: .blue),
+        LoyaltyBrandPreset(name: "WAON Point", region: .japan, category: "Multipartner", barcodeFormat: .qr, cardColor: .mint),
+
+        LoyaltyBrandPreset(name: "Best Buy Rewards", region: .northAmerica, category: "Electronics", barcodeFormat: .qr, cardColor: .blue),
+        LoyaltyBrandPreset(name: "CVS ExtraCare", region: .northAmerica, category: "Pharmacy", cardColor: .coral),
+        LoyaltyBrandPreset(name: "Kroger Plus", region: .northAmerica, category: "Grocery", cardColor: .blue),
+        LoyaltyBrandPreset(name: "Petco Vital Care", region: .northAmerica, category: "Pet Supplies", barcodeFormat: .qr, cardColor: .mint),
+        LoyaltyBrandPreset(name: "REI Co-op", region: .northAmerica, category: "Outdoor", barcodeFormat: .qr, cardColor: .mint),
+        LoyaltyBrandPreset(name: "Sephora Beauty Insider", region: .northAmerica, category: "Beauty", barcodeFormat: .qr, cardColor: .plum),
+        LoyaltyBrandPreset(name: "Starbucks Rewards", region: .northAmerica, category: "Coffee", barcodeFormat: .qr, cardColor: .mint),
+        LoyaltyBrandPreset(name: "Target Circle", region: .northAmerica, category: "Retail", barcodeFormat: .qr, cardColor: .coral),
+        LoyaltyBrandPreset(name: "Walgreens myWalgreens", region: .northAmerica, category: "Pharmacy", cardColor: .blue)
+    ]
 
     #if DEBUG
     static func seedCacheForTesting(_ data: Data) {

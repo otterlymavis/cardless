@@ -6,9 +6,9 @@ This folder contains Cardless, a lightweight SwiftUI loyalty-card wallet for iOS
 
 - **Fast capture:** add a loyalty card manually or with on-device barcode scanning.
 - **Minimal UI:** cute wallet list, recent cards, large barcode display, and no ads, feeds, coupons, or account sign-up.
-- **Offline-first:** cards are stored locally in `UserDefaults` as JSON; optional preset metadata can be fetched separately.
+- **Offline-first:** cards are stored locally in `UserDefaults` as JSON; brand presets include an offline baseline and optional remote additions.
 - **Lightweight native stack:** SwiftUI, Foundation, CoreImage, and UIKit only.
-- **Privacy-forward:** no analytics or remote sync; optional brand presets are fetched only from your configured JSON URL and cached locally.
+- **Privacy-forward:** no analytics or remote sync; optional remote brand presets are fetched only from your configured JSON URL and cached locally.
 
 ## How to run
 
@@ -20,7 +20,7 @@ This folder contains Cardless, a lightweight SwiftUI loyalty-card wallet for iOS
 ## Current feature set
 
 - Add, edit, delete, and view loyalty cards.
-- Start new cards from optional remote brand presets cached on device.
+- Start new cards from built-in brand presets, plus optional remote additions cached on device.
 - Mark frequent cards as favorites and keep them pinned to the top.
 - Show recently used cards as direct checkout shortcuts.
 - Customize card cover colors.
@@ -40,7 +40,7 @@ xcodebuild test -project LoyaltyCardsApp.xcodeproj -scheme LoyaltyCardsApp -dest
 
 ## Remote Brand Presets
 
-Cardless does not need to ship a built-in brand catalog. Host a JSON file like `../docs/brand-presets.example.json`, then set `CardlessBrandPresetURL` in `Sources/LoyaltyCardsApp/Info.plist` or `project.yml` to that HTTPS URL. The app caches successful downloads in the app Caches directory and skips refreshes for 24 hours.
+Cardless ships with a small built-in brand catalog so search works offline on a fresh install. To add or override presets, host a JSON file like `../docs/brand-presets.example.json`, then set `CardlessBrandPresetURL` in `Sources/LoyaltyCardsApp/Info.plist` or `project.yml` to that HTTPS URL. The app merges successful downloads with the built-in catalog, caches them in the app Caches directory, and skips refreshes for 24 hours.
 
 ## Manual acceptance checklist
 

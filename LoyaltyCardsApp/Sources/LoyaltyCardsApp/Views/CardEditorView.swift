@@ -173,6 +173,7 @@ struct CardEditorView: View {
             Color(red: 0.94, green: 0.94, blue: 0.90).ignoresSafeArea()
             PixelGridBackground().ignoresSafeArea()
         }
+        .accessibilityIdentifier("cardEditorView")
         .navigationTitle(isNewCard ? "// ADD CARD" : "// EDIT CARD")
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(Color(red: 0.94, green: 0.94, blue: 0.90), for: .navigationBar)
@@ -246,13 +247,15 @@ private struct BrandPresetPicker: View {
     let applyPreset: (LoyaltyBrandPreset) -> Void
 
     private var selectedRegion: LoyaltyBrandRegion { appSettings.selectedRegion }
+    private var hasSearchQuery: Bool {
+        !searchText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
 
     private var displayedPresets: [LoyaltyBrandPreset] {
         let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
         let presets = presetStore.presets(for: selectedRegion)
         guard !query.isEmpty else { return presets }
-        let regionalResults = presetStore.search(query, in: presets)
-        return regionalResults.isEmpty ? presetStore.searchAll(query) : regionalResults
+        return presetStore.search(query, preferredRegion: selectedRegion)
     }
 
     var body: some View {
@@ -322,24 +325,40 @@ private struct BrandPresetPicker: View {
                 .foregroundStyle(AppTheme.muted)
                 .padding(11)
             } else {
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: 8) {
+                if hasSearchQuery {
+                    LazyVGrid(columns: brandPresetGridColumns, alignment: .leading, spacing: 8) {
                         ForEach(displayed) { preset in
-                            Button {
-                                applyPreset(preset)
-                                searchText = ""
-                                withAnimation { appSettings.selectedRegion = preset.region }
-                            } label: {
-                                BrandPresetChip(preset: preset)
-                            }
-                            .buttonStyle(.plain)
-                            .accessibilityIdentifier("brandPreset.\(preset.id)")
+                            presetButton(for: preset)
                         }
                     }
-                    .padding(.vertical, 2)
+                } else {
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack(spacing: 8) {
+                            ForEach(displayed) { preset in
+                                presetButton(for: preset)
+                            }
+                        }
+                        .padding(.vertical, 2)
+                    }
                 }
             }
         }
+    }
+
+    private var brandPresetGridColumns: [GridItem] {
+        [GridItem(.adaptive(minimum: 120, maximum: 150), spacing: 8, alignment: .topLeading)]
+    }
+
+    private func presetButton(for preset: LoyaltyBrandPreset) -> some View {
+        Button {
+            applyPreset(preset)
+            searchText = ""
+            withAnimation { appSettings.selectedRegion = preset.region }
+        } label: {
+            BrandPresetChip(preset: preset)
+        }
+        .buttonStyle(.plain)
+        .accessibilityIdentifier("brandPreset.\(preset.id)")
     }
 }
 

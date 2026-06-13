@@ -65,8 +65,6 @@ final class LoyaltyCardsAppUITests: XCTestCase {
         plusButton.tap()
 
         // Card editor should appear
-        XCTAssertTrue(app.navigationBars["Add Card"].waitForExistence(timeout: 5))
-
         // Search for a brand
         let searchField = app.textFields["brandPresetSearchField"]
         XCTAssertTrue(searchField.waitForExistence(timeout: 5))
@@ -98,7 +96,7 @@ final class LoyaltyCardsAppUITests: XCTestCase {
         settingsTab.tap()
 
         // Settings sheet should open
-        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Done"].waitForExistence(timeout: 5))
 
         // Tap Japan region
         let japanButton = app.buttons.matching(NSPredicate(format: "label CONTAINS 'Japan'")).firstMatch
@@ -112,8 +110,6 @@ final class LoyaltyCardsAppUITests: XCTestCase {
         let plusButton = app.buttons["Add card"]
         XCTAssertTrue(plusButton.waitForExistence(timeout: 5))
         plusButton.tap()
-
-        XCTAssertTrue(app.navigationBars["Add Card"].waitForExistence(timeout: 5))
 
         // The region pill in the preset picker should show Japan as selected
         let japanTab = app.buttons.matching(NSPredicate(format: "label == 'Japan' AND value == 'selected'")).firstMatch
@@ -141,7 +137,7 @@ final class LoyaltyCardsAppUITests: XCTestCase {
         XCTAssertTrue(settingsTab.waitForExistence(timeout: 5))
         settingsTab.tap()
 
-        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.buttons["Done"].waitForExistence(timeout: 5))
 
         // Scroll down to Language section and tap Japanese
         let japaneseButton = app.buttons.matching(NSPredicate(format: "label CONTAINS '日本語'")).firstMatch
@@ -156,8 +152,6 @@ final class LoyaltyCardsAppUITests: XCTestCase {
         let plusButton = app.buttons["Add card"]
         XCTAssertTrue(plusButton.waitForExistence(timeout: 5))
         plusButton.tap()
-
-        XCTAssertTrue(app.navigationBars["Add Card"].waitForExistence(timeout: 5))
 
         // Default presets shown without any search should include Rakuten (a Japan brand)
         // because the region auto-switched to Japan
@@ -183,7 +177,7 @@ final class LoyaltyCardsAppUITests: XCTestCase {
         XCTAssertTrue(regionPill.waitForExistence(timeout: 5))
         regionPill.tap()
 
-        XCTAssertTrue(app.navigationBars["Settings"].waitForExistence(timeout: 5), "Tapping region pill should open Settings")
+        XCTAssertTrue(app.buttons["Done"].waitForExistence(timeout: 5), "Tapping region pill should open Settings")
         app.buttons["Done"].tap()
     }
 }

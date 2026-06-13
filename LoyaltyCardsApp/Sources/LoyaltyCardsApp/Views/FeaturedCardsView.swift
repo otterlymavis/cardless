@@ -26,7 +26,7 @@ enum PixelTheme {
 // Hard-offset pixel shadow (no blur)
 extension View {
     func pixelShadow(x: CGFloat = 4, y: CGFloat = 4, color: Color = PixelTheme.ink) -> some View {
-        self.shadow(color: color, radius: 0, x: x, y: y)
+        self.compositingGroup().shadow(color: color, radius: 0, x: x, y: y)
     }
     func pixelBorder(width: CGFloat = 2, color: Color = PixelTheme.ink) -> some View {
         self.overlay(Rectangle().stroke(color, lineWidth: width))
@@ -224,9 +224,9 @@ struct FeaturedCardsView: View {
                     .padding(.vertical, 16)
                     .background(PixelTheme.ink)
                     .pixelBorder()
-                    .pixelShadow(x: 4, y: 4, color: Color(red: 0.55, green: 0.48, blue: 0.00))
             }
             .buttonStyle(.plain)
+            .pixelShadow(x: 4, y: 4, color: Color(red: 0.55, green: 0.48, blue: 0.00))
             .accessibilityLabel("Add first card")
             .accessibilityIdentifier("emptyAddFirstCardButton")
         }

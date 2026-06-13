@@ -52,6 +52,7 @@ extension View {
         self
             .background(fill)
             .overlay(Rectangle().stroke(borderColor, lineWidth: 2))
+            .compositingGroup()
             .shadow(color: shadowColor, radius: 0, x: shadowX, y: shadowY)
     }
 
